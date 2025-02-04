@@ -107,25 +107,20 @@
 	</bean>
 
 
-	<bean id="declarationMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-		<property name="classesToBeBound">
-			<list>
-				<value>com.bbva.fsia.dto.artica.xml.DeclarationModel172</value>
-				<value>com.bbva.fsia.dto.artica.xml.Header</value>
-				<value>com.bbva.fsia.dto.artica.xml.Declarant</value>
-				<value>com.bbva.fsia.dto.artica.xml.ContactPerson</value>
-				<value>com.bbva.fsia.dto.artica.xml.Address</value>
-				<value>com.bbva.fsia.dto.artica.xml.DeclaredEntity</value>
-				<value>com.bbva.fsia.dto.artica.xml.VirtualCurrency</value>
-			</list>
+	<bean id="xmlItemWriter" class="org.springframework.batch.item.xml.StaxEventItemWriter">
+		<property name="resource" value="file:src/test/resources/declaration.xml"/>
+		<property name="marshaller">
+			<bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+				<property name="classesToBeBound">
+					<list>
+						<value>com.example.DeclarationModel172</value>
+					</list>
+				</property>
+			</bean>
 		</property>
+		<property name="rootTagName" value="Declaracion"/>
 	</bean>
 
-	<bean id="tradeWriter" class="com.bbva.fsia.batch.write.WriteDeclarationModel172">
-		<property name="resource" value="file:src/test/resources/declaracion172.xml" />
-		<property name="marshaller" ref="declarationMarshaller" />
-		<property name="rootTagName" value="declarations" />
-	</bean>
 
 
 
