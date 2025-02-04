@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- FSIAJ001-01-ES-beans.xml -->
+	
+	<!-- Set to the required transaction manager -->
+	<bean id="transactionManager" class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
+
+	<bean class="org.springframework.batch.core.scope.StepScope" />
+	
+	<bean id="jobLauncher"  class="com.bbva.elara.batch.launcher.SimpleJobLauncherBean">
+		<property name="job" ref="FSIAJ001-01-ES" />
+		<property name="batchLauncher" ref="batchLauncher" />
+		<property name="defaultIncrementer" ref="defaultIncrementer" />		
+	</bean>
+
+	<bean id="TradeFileResource" class="org.springframework.core.io.ClassPathResource">
+		<constructor-arg value="data/trade/input/trade.txt"/>
+	</bean>
+
+   <!-- CREATE BEAN AND PROPERTY RESOURCE FROM CLASS ReadTrade -->
+	<bean id="tradeReader" class="com.bbva.fsia.batch.read.ReadTrade">
+		<property name="resource" ref="TradeFileResource"/>
+	</bean>
+
+	<bean id="tradeProcess" class="com.bbva.fsia.batch.process.ProcessTrade">
+	</bean>
+
+
+	<!-- CREATE BEAN AND PROPERTY RESOURCE FROM CLASS WriteTrade -->
+
+
+
+
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+</beans>
