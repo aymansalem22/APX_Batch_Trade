@@ -4,4 +4,4 @@ job artica
 
 
 
-<img src="C:\Users\ayman\Desktop\digram.png" alt="My cool logo"/>
+![digram](https://github.com/user-attachments/assets/43f9669a-766a-496a-847c-20dfa3483808)
