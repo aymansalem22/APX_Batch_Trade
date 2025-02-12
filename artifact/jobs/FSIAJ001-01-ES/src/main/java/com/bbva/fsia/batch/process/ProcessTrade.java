@@ -57,7 +57,8 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclarationM
             virtualCurrency.setNumberOfUnits(trade.getGfTradeEx1Amount());
             virtualCurrency.setCurrencyValue(trade.getGfNetPriceAmount());
             virtualCurrency.setValueSource("CoinMarketCap"); // Fixed value
-            virtualCurrency.setCustodyEndDate(trade.getGfTrdDate().toString());
+            virtualCurrency.setCustodyEndDate(trade.getGfTrdDate());
+
 
 
             // Create Declared Entity

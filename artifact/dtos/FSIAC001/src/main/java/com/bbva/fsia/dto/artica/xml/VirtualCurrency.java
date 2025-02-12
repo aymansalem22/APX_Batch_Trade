@@ -3,6 +3,11 @@ package com.bbva.fsia.dto.artica.xml;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import java.util.Date;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class VirtualCurrency {
 
     private String currencyType;
@@ -11,7 +16,7 @@ public class VirtualCurrency {
     private Double numberOfUnits;
     private Double currencyValue;
     private String valueSource;
-    private String custodyEndDate;
+    private Date custodyEndDate;
 
     public String getCurrencyType() {
         return currencyType;
@@ -61,13 +66,14 @@ public class VirtualCurrency {
         this.valueSource = valueSource;
     }
 
-    public String getCustodyEndDate() {
+    public Date getCustodyEndDate() {
         return custodyEndDate;
     }
 
-    public void setCustodyEndDate(String custodyEndDate) {
+    public void setCustodyEndDate(Date custodyEndDate) {
         this.custodyEndDate = custodyEndDate;
     }
+
 
     @Override
     public boolean equals(Object o) {

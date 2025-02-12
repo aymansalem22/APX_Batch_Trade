@@ -42,6 +42,20 @@
 
 	<!-- CREATE BEAN AND PROPERTY RESOURCE FROM CLASS WriteTrade -->
 
+<!--	<bean id="tradeWriter" class="org.springframework.batch.item.xml.StaxEventItemWriter">
+		<property name="resource" ref="TradeFileResourceXml"/>
+		<property name="marshaller">
+			<bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+				<property name="aliases">
+					<map>
+						<entry key="Declaracion" value="com.bbva.fsia.dto.artica.xml.DeclarationModel172"/>
+					</map>
+				</property>
+			</bean>
+		</property>
+		<property name="rootTagName" value="Declaracion"/>
+	</bean>-->
+
 	<bean id="tradeWriter" class="org.springframework.batch.item.xml.StaxEventItemWriter">
 		<property name="resource" ref="TradeFileResourceXml"/>
 		<property name="marshaller">

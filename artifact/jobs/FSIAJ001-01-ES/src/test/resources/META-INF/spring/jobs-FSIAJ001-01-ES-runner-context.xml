@@ -107,6 +107,34 @@
 	</bean>
 
 
+
+
+
+
+
+<!--	<bean id="tradeWriter" class="org.springframework.batch.item.xml.StaxEventItemWriter">
+		<property name="resource" value="file:src/test/resources/declaration.xml"/>
+		<property name="marshaller">
+			<bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+				<property name="aliases">
+					<map>
+						<entry key="Declaracion" value="com.bbva.fsia.dto.artica.xml.DeclarationModel172"/>
+						<entry key="Declarado" value="com.bbva.fsia.dto.artica.xml.DeclaredEntity"/>
+						<entry key="Header" value="com.bbva.fsia.dto.artica.xml.Header"/>
+						<entry key="ContactPerson" value="com.bbva.fsia.dto.artica.xml.ContactPerson"/>
+						<entry key="VirtualCurrency" value="com.bbva.fsia.dto.artica.xml.VirtualCurrency"/>
+						<entry key="Address" value="com.bbva.fsia.dto.artica.xml.Address"/>
+						<entry key="Declarant" value="com.bbva.fsia.dto.artica.xml.Declarant"/>
+					</map>
+				</property>
+
+			</bean>
+		</property>
+		<property name="rootTagName" value="Declaracion"/>
+	</bean>-->
+
+
+
 	<bean id="tradeWriter" class="org.springframework.batch.item.xml.StaxEventItemWriter">
 		<property name="resource" value="file:src/test/resources/declaration.xml"/>
 		<property name="marshaller">
@@ -114,19 +142,17 @@
 				<property name="classesToBeBound">
 					<list>
 						<value>com.bbva.fsia.dto.artica.xml.DeclarationModel172</value>
+						<value>com.bbva.fsia.dto.artica.xml.Header</value>
+						<value>com.bbva.fsia.dto.artica.xml.DeclaredEntity</value>
+						<value>com.bbva.fsia.dto.artica.xml.Declarant</value>
+						<value>com.bbva.fsia.dto.artica.xml.ContactPerson</value>
+						<value>com.bbva.fsia.dto.artica.xml.Address</value>
+						<value>com.bbva.fsia.dto.artica.xml.VirtualCurrency</value>
 					</list>
 				</property>
 			</bean>
 		</property>
 		<property name="rootTagName" value="Declaracion"/>
 	</bean>
-
-
-
-
-
-
-
-
 
 </beans>
