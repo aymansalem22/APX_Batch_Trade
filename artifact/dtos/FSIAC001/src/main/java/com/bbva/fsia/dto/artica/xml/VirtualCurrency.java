@@ -5,8 +5,10 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
+@XmlRootElement(name = "VirtualCurrency")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class VirtualCurrency {
 
@@ -17,6 +19,7 @@ public class VirtualCurrency {
     private Double currencyValue;
     private String valueSource;
     private Date custodyEndDate;
+    private Double balanceAtYearEnd;
 
     public String getCurrencyType() {
         return currencyType;
@@ -64,6 +67,15 @@ public class VirtualCurrency {
 
     public void setValueSource(String valueSource) {
         this.valueSource = valueSource;
+    }
+
+
+    public Double getBalanceAtYearEnd() {
+        return balanceAtYearEnd;
+    }
+
+    public void setBalanceAtYearEnd(Double balanceAtYearEnd) {
+        this.balanceAtYearEnd = balanceAtYearEnd;
     }
 
     public Date getCustodyEndDate() {

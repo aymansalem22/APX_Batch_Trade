@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DeclaracionInformativa172>
+    <declaredEntities>
+        <address>
+            <city>Madrid</city>
+            <country>ES</country>
+            <number>12</number>
+            <postalCode>28013</postalCode>
+            <street>Gran Via</street>
+        </address>
+        <declaredRecordId>123456.0</declaredRecordId>
+        <fullName>John Doe, Jane Smith</fullName>
+        <key>T</key>
+        <virtualCurrency>
+            <currencyName>BTC/EUR</currencyName>
+            <currencySymbol>BTC</currencySymbol>
+            <currencyType>V</currencyType>
+            <currencyValue>34950.5</currencyValue>
+            <custodyEndDate>2024-01-30T00:00:00+01:00</custodyEndDate>
+            <numberOfUnits>2.5</numberOfUnits>
+            <valueSource>CoinMarketCap</valueSource>
+        </virtualCurrency>
+    </declaredEntities>
+    <header>
+        <communicationType>A0</communicationType>
+        <declarant>
+            <companyName>My Company</companyName>
+            <contactPerson>
+                <fullName>John Doe</fullName>
+                <phone>+34987654321</phone>
+            </contactPerson>
+            <taxId>XXXXXXXXX</taxId>
+        </declarant>
+        <fiscalYear>2024</fiscalYear>
+        <model>172</model>
+        <modelVersionId>1.0</modelVersionId>
+    </header>
+</DeclaracionInformativa172>

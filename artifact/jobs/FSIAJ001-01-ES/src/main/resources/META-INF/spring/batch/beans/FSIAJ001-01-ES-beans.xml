@@ -27,8 +27,8 @@
 		<constructor-arg value="data/trade/input/trade.txt"/>
 	</bean>
 
-	<bean id="TradeFileResourceXml" class="org.springframework.core.io.ClassPathResource">
-		<constructor-arg value="data/trade/output/declaration.xml"/>
+	<bean id="TradeFileResourceXml" class="org.springframework.core.io.FileSystemResource">
+		<constructor-arg value="datas/trade/output/declaration.xml"/>
 	</bean>
 
    <!-- CREATE BEAN AND PROPERTY RESOURCE FROM CLASS ReadTrade -->
@@ -56,7 +56,7 @@
 		<property name="rootTagName" value="Declaracion"/>
 	</bean>-->
 
-	<bean id="tradeWriter" class="org.springframework.batch.item.xml.StaxEventItemWriter">
+	<!--<bean id="tradeWriter" class="org.springframework.batch.item.xml.StaxEventItemWriter">
 		<property name="resource" ref="TradeFileResourceXml"/>
 		<property name="marshaller">
 			<bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
@@ -68,8 +68,12 @@
 			</bean>
 		</property>
 		<property name="rootTagName" value="Declaracion"/>
-	</bean>
+	</bean>-->
 
+	<bean id="tradeWriter" class="com.bbva.fsia.batch.write.WriteDeclarationModel172">
+		<!--<property name="outputFilePath" value="TradeFileResourceXml" />-->
+		<property name="resource" ref="TradeFileResourceXml"/>
+	</bean>
 
 
 	<tx:annotation-driven transaction-manager="transactionManager" />

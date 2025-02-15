@@ -135,7 +135,7 @@
 
 
 
-	<bean id="tradeWriter" class="org.springframework.batch.item.xml.StaxEventItemWriter">
+<!--	<bean id="tradeWriter" class="org.springframework.batch.item.xml.StaxEventItemWriter">
 		<property name="resource" value="file:src/test/resources/declaration.xml"/>
 		<property name="marshaller">
 			<bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
@@ -153,6 +153,6 @@
 			</bean>
 		</property>
 		<property name="rootTagName" value="Declaracion"/>
-	</bean>
+	</bean>-->
 
 </beans>

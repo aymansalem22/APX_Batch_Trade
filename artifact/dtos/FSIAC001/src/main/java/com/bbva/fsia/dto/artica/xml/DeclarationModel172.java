@@ -3,15 +3,16 @@ package com.bbva.fsia.dto.artica.xml;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.util.List;
 
-@XmlRootElement(name = "Declaracion")
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "DeclaracionInformativa172")
 public class DeclarationModel172 {
+
+    @XmlElement(name = "Cabecera")
     private Header header;
+
+    @XmlElement(name = "Declarados")
     private List<DeclaredEntity> declaredEntities;
 
     public Header getHeader() {
