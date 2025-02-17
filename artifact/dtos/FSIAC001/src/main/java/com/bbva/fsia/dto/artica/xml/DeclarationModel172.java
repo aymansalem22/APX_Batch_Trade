@@ -7,20 +7,25 @@ import javax.xml.bind.annotation.*;
 import java.util.List;
 
 @XmlRootElement(name = "DeclaracionInformativa172")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DeclarationModel172 {
 
-    @XmlElement(name = "Cabecera")
-    private Header header;
 
-    @XmlElement(name = "Declarados")
+    @XmlElement(name = "Cabecera")
+    private Header cabecera;
+
+
+    @XmlElementWrapper(name = "Declarados") // ✅ Wraps the list under <Declarados>
+    @XmlElement(name = "Declarado") // ✅ Each item inside will be <Declarado>
     private List<DeclaredEntity> declaredEntities;
 
-    public Header getHeader() {
-        return header;
+
+    public Header getCabecera() {
+        return cabecera;
     }
 
-    public void setHeader(Header header) {
-        this.header = header;
+    public void setCabecera(Header cabecera) {
+        this.cabecera = cabecera;
     }
 
     public List<DeclaredEntity> getDeclaredEntities() {
@@ -31,6 +36,7 @@ public class DeclarationModel172 {
         this.declaredEntities = declaredEntities;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,18 +45,18 @@ public class DeclarationModel172 {
 
         DeclarationModel172 that = (DeclarationModel172) o;
 
-        return new EqualsBuilder().append(header, that.header).append(declaredEntities, that.declaredEntities).isEquals();
+        return new EqualsBuilder().append(cabecera, that.cabecera).append(declaredEntities, that.declaredEntities).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(header).append(declaredEntities).toHashCode();
+        return new HashCodeBuilder(17, 37).append(cabecera).append(declaredEntities).toHashCode();
     }
 
     @Override
     public String toString() {
         return "DeclarationModel172{" +
-                "header=" + header +
+                "cabecera=" + cabecera +
                 ", declaredEntities=" + declaredEntities +
                 '}';
     }

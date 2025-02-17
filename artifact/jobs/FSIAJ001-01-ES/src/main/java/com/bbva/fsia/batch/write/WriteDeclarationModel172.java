@@ -12,6 +12,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import java.io.File;
 import java.io.OutputStream;
+import java.io.StringWriter;
 import java.util.List;
 
 public class WriteDeclarationModel172 implements ItemWriter<DeclarationModel172> {
@@ -23,6 +24,7 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclarationModel172>
         this.resource = (WritableResource) resource; // ✅ Ensure it's writable
     }
 
+
     @Override
     public void write(List<? extends DeclarationModel172> list) throws Exception {
         if (list == null || list.isEmpty()) {
@@ -32,36 +34,36 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclarationModel172>
 
         System.out.println("⏳ Start writing XML...");
 
-        // Ensure the resource is valid
         if (resource == null) {
             System.out.println("❌ Resource is NULL! Cannot write XML.");
             return;
         }
 
-        // Ensure the file path exists
         File outputFile = resource.getFile();
         File parentDir = outputFile.getParentFile();
         if (!parentDir.exists()) {
-            boolean created = parentDir.mkdirs(); // ✅ Create the directory
+            boolean created = parentDir.mkdirs();
             System.out.println("✅ Created output directory: " + parentDir.getAbsolutePath());
         }
 
         System.out.println("📂 Writing XML to: " + outputFile.getAbsolutePath());
 
-        // Get the first DeclarationModel172 object
-        DeclarationModel172 declaration = list.get(0);
-        System.out.println("📌 Declaration content: " + declaration);
-
-        // Set up JAXB for XML generation
         JAXBContext jaxbContext = JAXBContext.newInstance(DeclarationModel172.class);
         Marshaller marshaller = jaxbContext.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE); // Avoid XML declaration
 
-        // Write XML to the output stream
-        try (OutputStream os = resource.getOutputStream()) {
-            System.out.println("✍ Writing XML to file...");
-            marshaller.marshal(declaration, os);
-            System.out.println("✅ XML writing completed successfully!");
+        try (StringWriter stringWriter = new StringWriter()) {
+            stringWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
+            for (DeclarationModel172 declaration : list) {
+                marshaller.marshal(declaration, stringWriter);
+                stringWriter.write("\n"); // Add a newline after each declaration
+            }
+
+            try (OutputStream os = resource.getOutputStream()) {
+                os.write(stringWriter.toString().getBytes());
+                System.out.println("✅ XML writing completed successfully!");
+            }
         } catch (Exception e) {
             System.out.println("❌ Error while writing XML: " + e.getMessage());
             e.printStackTrace();

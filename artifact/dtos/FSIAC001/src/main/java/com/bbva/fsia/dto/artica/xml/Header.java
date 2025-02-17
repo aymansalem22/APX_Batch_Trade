@@ -5,15 +5,20 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
-@XmlRootElement(name = "Header")
+@XmlRootElement(name = "Cabecera")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Header {
+    @XmlElement(name = "TipoComunicacion")
     private String communicationType;
+    @XmlElement(name = "Modelo")
     private String model;
+    @XmlElement(name = "Ejercicio")
     private String fiscalYear;
+    @XmlElement(name = "IDVersionModelo")
     private String modelVersionId;
     private Declarant declarant;
 

@@ -5,20 +5,29 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
-@XmlRootElement(name = "VirtualCurrency")
+@XmlRootElement(name = "MonedaVirtual")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class VirtualCurrency {
 
+    @XmlElement(name = "TipoMoneda")
     private String currencyType;
+    @XmlElement(name = "DenominaciónMonedaVirtual")
     private String currencyName;
+    @XmlElement(name = "SiglasMonedaVirtual")
     private String currencySymbol;
+    @XmlElement(name = "NumMonedas")
     private Double numberOfUnits;
+    @XmlElement(name = "ValorMonedas")
     private Double currencyValue;
+    @XmlElement(name = "OrigenValorMonedas")
     private String valueSource;
+    @XmlElement(name = "FechaFinCustodia")
     private Date custodyEndDate;
+    @XmlElement(name = "SaldoMonedaVirtual")
     private Double balanceAtYearEnd;
 
     public String getCurrencyType() {

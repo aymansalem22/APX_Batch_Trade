@@ -3,19 +3,25 @@ package com.bbva.fsia.dto.artica.xml;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
+import java.util.List;
 
 @XmlRootElement(name = "DeclaredEntity")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DeclaredEntity {
 
+    @XmlElement(name = "IDRegistroDeclarado")
     private Double declaredRecordId;
+    @XmlElement(name = "Clave")
     private String key;
+    @XmlElement(name = "NombreRazon")
     private String fullName;
+    @XmlElement(name = "Domicilio")
     private Address address;
-    private VirtualCurrency virtualCurrency;
+    @XmlElementWrapper(name = "IDMonedas") // ✅ Wraps all currencies inside <IDMonedas>
+    @XmlElement(name = "MonedaVirtual") // ✅ Ensures each currency is inside <MonedaVirtual>
+    private List<VirtualCurrency> virtualCurrencies;
+
 
     public Double getDeclaredRecordId() {
         return declaredRecordId;
@@ -49,12 +55,12 @@ public class DeclaredEntity {
         this.address = address;
     }
 
-    public VirtualCurrency getVirtualCurrency() {
-        return virtualCurrency;
+    public List<VirtualCurrency> getVirtualCurrencies() {
+        return virtualCurrencies;
     }
 
-    public void setVirtualCurrency(VirtualCurrency virtualCurrency) {
-        this.virtualCurrency = virtualCurrency;
+    public void setVirtualCurrencies(List<VirtualCurrency> virtualCurrencies) {
+        this.virtualCurrencies = virtualCurrencies;
     }
 
     @Override
@@ -65,12 +71,12 @@ public class DeclaredEntity {
 
         DeclaredEntity that = (DeclaredEntity) o;
 
-        return new EqualsBuilder().append(declaredRecordId, that.declaredRecordId).append(key, that.key).append(fullName, that.fullName).append(address, that.address).append(virtualCurrency, that.virtualCurrency).isEquals();
+        return new EqualsBuilder().append(declaredRecordId, that.declaredRecordId).append(key, that.key).append(fullName, that.fullName).append(address, that.address).append(virtualCurrencies, that.virtualCurrencies).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(declaredRecordId).append(key).append(fullName).append(address).append(virtualCurrency).toHashCode();
+        return new HashCodeBuilder(17, 37).append(declaredRecordId).append(key).append(fullName).append(address).append(virtualCurrencies).toHashCode();
     }
 
     @Override
@@ -80,7 +86,7 @@ public class DeclaredEntity {
                 ", key='" + key + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", address=" + address +
-                ", virtualCurrency=" + virtualCurrency +
+                ", virtualCurrencies=" + virtualCurrencies +
                 '}';
     }
 }

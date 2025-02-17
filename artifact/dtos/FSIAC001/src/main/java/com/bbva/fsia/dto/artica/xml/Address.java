@@ -5,17 +5,23 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
-@XmlRootElement(name = "Address")
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Address {
 
+    @XmlElement(name = "CodigoPais")
     private String country;
+    @XmlElement(name = "NombreMunicipio")
     private String city;
+    @XmlElement(name = "NombreVía")
     private String street;
+    @XmlElement(name = "Numeración")
     private String number;
+    @XmlElement(name = "CódigoPostal")
     private String postalCode;
 
     public String getCountry() {
