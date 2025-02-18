@@ -30,6 +30,8 @@ public class VirtualCurrency {
     @XmlElement(name = "SaldoMonedaVirtual")
     private Double balanceAtYearEnd;
 
+
+
     public String getCurrencyType() {
         return currencyType;
     }

@@ -20,6 +20,7 @@ public class Header {
     private String fiscalYear;
     @XmlElement(name = "IDVersionModelo")
     private String modelVersionId;
+    @XmlElement(name = "IDDeclarante")
     private Declarant declarant;
 
     public String getCommunicationType() {

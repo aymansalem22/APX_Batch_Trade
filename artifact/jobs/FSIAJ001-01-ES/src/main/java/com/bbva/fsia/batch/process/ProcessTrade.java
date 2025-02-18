@@ -5,31 +5,41 @@ import com.bbva.fsia.dto.artica.xml.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
-
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 
 public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclarationModel172> {
         public static final Logger LOGGER = LoggerFactory.getLogger(ProcessTrade.class);
 
-
-        private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy"); // ✅ Ensure correct XML date format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         @Override
         public DeclarationModel172 process(TradeOperation trade) throws Exception {
 
-                // ✅ 1. Create Header
+                // ✅ 1. Create Header with Fixed Values
                 Header header = new Header();
-                header.setCommunicationType("A0");
-                header.setModel("172");
-                header.setFiscalYear("2024");
-                header.setModelVersionId("1.0");
+                header.setCommunicationType("A0");  // Fixed value
+                header.setModel("172");  // Fixed value
+                header.setFiscalYear("2023");  // Fixed value
+                header.setModelVersionId("1.0");  // Fixed value
 
-                // ✅ 2. Create Declarant
+                // ✅ 2. Create Declarant (IDDeclarante) and set fixed values
                 Declarant declarant = new Declarant();
-                declarant.setTaxId("XXXXXXXXX");
-                declarant.setCompanyName("My Company");
+                declarant.setTaxId("A48265169");  // Fixed value
+                declarant.setCompanyName("BANCO BILBAO VIZCAYA ARGENTARIA S.A.");  // Fixed value
+                declarant.setRepresentativeTaxId("XXXXXXXX");  // Fixed value
+
+
+                // ✅ 3. Set Declarant inside Header
+                header.setDeclarant(declarant);
+
 
                 // ✅ 3. Create Contact Person
                 ContactPerson contactPerson = new ContactPerson();
@@ -37,6 +47,7 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclarationM
                 contactPerson.setFullName("John Doe");
 
                 declarant.setContactPerson(contactPerson);
+
                 header.setDeclarant(declarant);
 
                 // ✅ 4. Create Address
@@ -56,11 +67,12 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclarationM
                 virtualCurrency.setCurrencyValue(trade.getGfNetPriceAmount() != null ? trade.getGfNetPriceAmount() : 0.0);
                 virtualCurrency.setValueSource("CoinMarketCap");
 
-                // ✅ Ensure custodyEndDate is formatted correctly
                 if (trade.getGfTrdDate() != null) {
-                        virtualCurrency.setCustodyEndDate(DATE_FORMAT.parse(DATE_FORMAT.format(trade.getGfTrdDate())));
+                        Date utilDate = new Date(trade.getGfTrdDate().getTime());
+                        LocalDate localDate = utilDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        virtualCurrency.setCustodyEndDate(Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
                 } else {
-                        virtualCurrency.setCustodyEndDate(DATE_FORMAT.parse("01-01-2024")); // ✅ Default to avoid XML errors
+                        virtualCurrency.setCustodyEndDate(null);
                 }
 
                 // ✅ 6. Map Balance at Year End (SaldoMonedaVirtual)
@@ -81,4 +93,6 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclarationM
 
                 return declaration;
         }
+
+
 }

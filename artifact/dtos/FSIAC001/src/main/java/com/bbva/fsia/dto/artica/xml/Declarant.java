@@ -5,13 +5,22 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "Declarant")
+@XmlRootElement(name = "IDDeclarante")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Declarant {
+    @XmlElement(name = "NIF") // ✅ Matches <NIF> in XML
     private String taxId;
+
+    @XmlElement(name = "NombreRazon") // ✅ Matches <NombreRazon> in XML
     private String companyName;
+
+    @XmlElement(name = "NIFRepresentante") // ✅ Matches <NIFRepresentante> in XML
+    private String representativeTaxId; // New field for representative NIF
+
+    @XmlElement(name = "PersonaContacto")
     private ContactPerson contactPerson;
 
     public String getTaxId() {
@@ -30,6 +39,14 @@ public class Declarant {
         this.companyName = companyName;
     }
 
+    public String getRepresentativeTaxId() {
+        return representativeTaxId;
+    }
+
+    public void setRepresentativeTaxId(String representativeTaxId) {
+        this.representativeTaxId = representativeTaxId;
+    }
+
     public ContactPerson getContactPerson() {
         return contactPerson;
     }
@@ -46,12 +63,12 @@ public class Declarant {
 
         Declarant declarant = (Declarant) o;
 
-        return new EqualsBuilder().append(taxId, declarant.taxId).append(companyName, declarant.companyName).append(contactPerson, declarant.contactPerson).isEquals();
+        return new EqualsBuilder().append(taxId, declarant.taxId).append(companyName, declarant.companyName).append(representativeTaxId, declarant.representativeTaxId).append(contactPerson, declarant.contactPerson).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(taxId).append(companyName).append(contactPerson).toHashCode();
+        return new HashCodeBuilder(17, 37).append(taxId).append(companyName).append(representativeTaxId).append(contactPerson).toHashCode();
     }
 
     @Override
@@ -59,6 +76,7 @@ public class Declarant {
         return "Declarant{" +
                 "taxId='" + taxId + '\'' +
                 ", companyName='" + companyName + '\'' +
+                ", representativeTaxId='" + representativeTaxId + '\'' +
                 ", contactPerson=" + contactPerson +
                 '}';
     }

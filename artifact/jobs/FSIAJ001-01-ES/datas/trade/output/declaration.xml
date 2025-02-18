@@ -3,16 +3,17 @@
     <Cabecera>
         <TipoComunicacion>A0</TipoComunicacion>
         <Modelo>172</Modelo>
-        <Ejercicio>2024</Ejercicio>
+        <Ejercicio>2023</Ejercicio>
         <IDVersionModelo>1.0</IDVersionModelo>
-        <declarant>
-            <taxId>XXXXXXXXX</taxId>
-            <companyName>My Company</companyName>
-            <contactPerson>
+        <IDDeclarante>
+            <NIF>A48265169</NIF>
+            <NombreRazon>BANCO BILBAO VIZCAYA ARGENTARIA S.A.</NombreRazon>
+            <NIFRepresentante>XXXXXXXX</NIFRepresentante>
+            <PersonaContacto>
                 <phone>+34987654321</phone>
                 <fullName>John Doe</fullName>
-            </contactPerson>
-        </declarant>
+            </PersonaContacto>
+        </IDDeclarante>
     </Cabecera>
     <Declarados>
         <Declarado>
@@ -22,14 +23,14 @@
             <Domicilio>
                 <CodigoPais>ES</CodigoPais>
                 <NombreMunicipio>Madrid</NombreMunicipio>
-                <NombreV韆>Gran Via</NombreV韆>
-                <Numeraci髇>12</Numeraci髇>
-                <C骴igoPostal>28013</C骴igoPostal>
+                <NombreV铆a>Gran Via</NombreV铆a>
+                <Numeraci贸n>12</Numeraci贸n>
+                <C贸digoPostal>28013</C贸digoPostal>
             </Domicilio>
             <IDMonedas>
                 <MonedaVirtual>
                     <TipoMoneda>V</TipoMoneda>
-                    <Denominaci髇MonedaVirtual>BTC/EUR</Denominaci髇MonedaVirtual>
+                    <Denominaci贸nMonedaVirtual>BTC/EUR</Denominaci贸nMonedaVirtual>
                     <SiglasMonedaVirtual>BTC</SiglasMonedaVirtual>
                     <NumMonedas>2.5</NumMonedas>
                     <ValorMonedas>34950.5</ValorMonedas>
@@ -39,24 +40,6 @@
                 </MonedaVirtual>
             </IDMonedas>
         </Declarado>
-    </Declarados>
-</DeclaracionInformativa172>
-<DeclaracionInformativa172>
-    <Cabecera>
-        <TipoComunicacion>A0</TipoComunicacion>
-        <Modelo>172</Modelo>
-        <Ejercicio>2024</Ejercicio>
-        <IDVersionModelo>1.0</IDVersionModelo>
-        <declarant>
-            <taxId>XXXXXXXXX</taxId>
-            <companyName>My Company</companyName>
-            <contactPerson>
-                <phone>+34987654321</phone>
-                <fullName>John Doe</fullName>
-            </contactPerson>
-        </declarant>
-    </Cabecera>
-    <Declarados>
         <Declarado>
             <IDRegistroDeclarado>234567.0</IDRegistroDeclarado>
             <Clave>T</Clave>
@@ -64,14 +47,14 @@
             <Domicilio>
                 <CodigoPais>ES</CodigoPais>
                 <NombreMunicipio>Madrid</NombreMunicipio>
-                <NombreV韆>Gran Via</NombreV韆>
-                <Numeraci髇>12</Numeraci髇>
-                <C骴igoPostal>28013</C骴igoPostal>
+                <NombreV铆a>Gran Via</NombreV铆a>
+                <Numeraci贸n>12</Numeraci贸n>
+                <C贸digoPostal>28013</C贸digoPostal>
             </Domicilio>
             <IDMonedas>
                 <MonedaVirtual>
                     <TipoMoneda>V</TipoMoneda>
-                    <Denominaci髇MonedaVirtual>ETH/USD</Denominaci髇MonedaVirtual>
+                    <Denominaci贸nMonedaVirtual>ETH/USD</Denominaci贸nMonedaVirtual>
                     <SiglasMonedaVirtual>ETH</SiglasMonedaVirtual>
                     <NumMonedas>1.8</NumMonedas>
                     <ValorMonedas>2160.4</ValorMonedas>
