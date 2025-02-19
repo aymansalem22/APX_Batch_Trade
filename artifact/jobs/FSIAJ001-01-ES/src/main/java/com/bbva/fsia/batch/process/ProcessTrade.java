@@ -68,9 +68,7 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclarationM
                 virtualCurrency.setValueSource("CoinMarketCap");
 
                 if (trade.getGfTrdDate() != null) {
-                        Date utilDate = new Date(trade.getGfTrdDate().getTime());
-                        LocalDate localDate = utilDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                        virtualCurrency.setCustodyEndDate(Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+                        virtualCurrency.setCustodyEndDate(trade.getGfTrdDate());
                 } else {
                         virtualCurrency.setCustodyEndDate(null);
                 }
@@ -90,7 +88,9 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclarationM
                 DeclarationModel172 declaration = new DeclarationModel172();
                 declaration.setCabecera(header);
                 declaration.setDeclaredEntities(Collections.singletonList(declaredEntity));
-
+                //print the delcartion model with sout
+                System.out.println("Declaration Model: " + declaration);
+                LOGGER.info("Declaration Model: {}", declaration);
                 return declaration;
         }
 

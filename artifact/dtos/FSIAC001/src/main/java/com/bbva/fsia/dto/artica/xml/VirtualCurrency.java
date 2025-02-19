@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 
 @XmlRootElement(name = "MonedaVirtual")
@@ -26,6 +27,7 @@ public class VirtualCurrency {
     @XmlElement(name = "OrigenValorMonedas")
     private String valueSource;
     @XmlElement(name = "FechaFinCustodia")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date custodyEndDate;
     @XmlElement(name = "SaldoMonedaVirtual")
     private Double balanceAtYearEnd;

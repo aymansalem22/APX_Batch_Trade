@@ -1,5 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:dec="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/Declaracion.xsd"
+                  xmlns:dec1="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/DeclaracionInformativa.xsd">
+<soapenv:Header/>
+<soapenv:Body>
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DeclaracionInformativa172>
+<dec:Declaracion>
     <Cabecera>
         <TipoComunicacion>A0</TipoComunicacion>
         <Modelo>172</Modelo>
@@ -10,59 +16,59 @@
             <NombreRazon>BANCO BILBAO VIZCAYA ARGENTARIA S.A.</NombreRazon>
             <NIFRepresentante>XXXXXXXX</NIFRepresentante>
             <PersonaContacto>
-                <phone>+34987654321</phone>
-                <fullName>John Doe</fullName>
+                <Telefono>+34987654321</Telefono>
+                <NombreCompleto>John Doe</NombreCompleto>
             </PersonaContacto>
         </IDDeclarante>
     </Cabecera>
-    <Declarados>
-        <Declarado>
-            <IDRegistroDeclarado>123456.0</IDRegistroDeclarado>
-            <Clave>T</Clave>
-            <NombreRazon>John Doe, Jane Smith</NombreRazon>
-            <Domicilio>
-                <CodigoPais>ES</CodigoPais>
-                <NombreMunicipio>Madrid</NombreMunicipio>
-                <NombreVía>Gran Via</NombreVía>
-                <Numeración>12</Numeración>
-                <CódigoPostal>28013</CódigoPostal>
-            </Domicilio>
-            <IDMonedas>
-                <MonedaVirtual>
-                    <TipoMoneda>V</TipoMoneda>
-                    <DenominaciónMonedaVirtual>BTC/EUR</DenominaciónMonedaVirtual>
-                    <SiglasMonedaVirtual>BTC</SiglasMonedaVirtual>
-                    <NumMonedas>2.5</NumMonedas>
-                    <ValorMonedas>34950.5</ValorMonedas>
-                    <OrigenValorMonedas>CoinMarketCap</OrigenValorMonedas>
-                    <FechaFinCustodia>2024-01-30T00:00:00+01:00</FechaFinCustodia>
-                    <SaldoMonedaVirtual>87450.38</SaldoMonedaVirtual>
-                </MonedaVirtual>
-            </IDMonedas>
-        </Declarado>
-        <Declarado>
-            <IDRegistroDeclarado>234567.0</IDRegistroDeclarado>
-            <Clave>T</Clave>
-            <NombreRazon>Alice Johnson</NombreRazon>
-            <Domicilio>
-                <CodigoPais>ES</CodigoPais>
-                <NombreMunicipio>Madrid</NombreMunicipio>
-                <NombreVía>Gran Via</NombreVía>
-                <Numeración>12</Numeración>
-                <CódigoPostal>28013</CódigoPostal>
-            </Domicilio>
-            <IDMonedas>
-                <MonedaVirtual>
-                    <TipoMoneda>V</TipoMoneda>
-                    <DenominaciónMonedaVirtual>ETH/USD</DenominaciónMonedaVirtual>
-                    <SiglasMonedaVirtual>ETH</SiglasMonedaVirtual>
-                    <NumMonedas>1.8</NumMonedas>
-                    <ValorMonedas>2160.4</ValorMonedas>
-                    <OrigenValorMonedas>CoinMarketCap</OrigenValorMonedas>
-                    <FechaFinCustodia>2024-01-29T00:00:00+01:00</FechaFinCustodia>
-                    <SaldoMonedaVirtual>3920.8</SaldoMonedaVirtual>
-                </MonedaVirtual>
-            </IDMonedas>
-        </Declarado>
-    </Declarados>
-</DeclaracionInformativa172>
+    <Declarado>
+        <IDRegistroDeclarado>123456.0</IDRegistroDeclarado>
+        <Clave>T</Clave>
+        <NombreRazon>John Doe, Jane Smith</NombreRazon>
+        <Domicilio>
+            <CodigoPais>ES</CodigoPais>
+            <NombreMunicipio>Madrid</NombreMunicipio>
+            <NombreVía>Gran Via</NombreVía>
+            <Numeración>12</Numeración>
+            <CódigoPostal>28013</CódigoPostal>
+        </Domicilio>
+        <IDMonedas>
+            <MonedaVirtual>
+                <TipoMoneda>V</TipoMoneda>
+                <DenominaciónMonedaVirtual>BTC/EUR</DenominaciónMonedaVirtual>
+                <SiglasMonedaVirtual>BTC</SiglasMonedaVirtual>
+                <NumMonedas>2.5</NumMonedas>
+                <ValorMonedas>34950.5</ValorMonedas>
+                <OrigenValorMonedas>CoinMarketCap</OrigenValorMonedas>
+                <FechaFinCustodia>30-01-2024</FechaFinCustodia>
+                <SaldoMonedaVirtual>87450.38</SaldoMonedaVirtual>
+            </MonedaVirtual>
+        </IDMonedas>
+    </Declarado>
+    <Declarado>
+        <IDRegistroDeclarado>234567.0</IDRegistroDeclarado>
+        <Clave>T</Clave>
+        <NombreRazon>Alice Johnson</NombreRazon>
+        <Domicilio>
+            <CodigoPais>ES</CodigoPais>
+            <NombreMunicipio>Madrid</NombreMunicipio>
+            <NombreVía>Gran Via</NombreVía>
+            <Numeración>12</Numeración>
+            <CódigoPostal>28013</CódigoPostal>
+        </Domicilio>
+        <IDMonedas>
+            <MonedaVirtual>
+                <TipoMoneda>V</TipoMoneda>
+                <DenominaciónMonedaVirtual>ETH/USD</DenominaciónMonedaVirtual>
+                <SiglasMonedaVirtual>ETH</SiglasMonedaVirtual>
+                <NumMonedas>1.8</NumMonedas>
+                <ValorMonedas>2160.4</ValorMonedas>
+                <OrigenValorMonedas>CoinMarketCap</OrigenValorMonedas>
+                <FechaFinCustodia>29-01-2024</FechaFinCustodia>
+                <SaldoMonedaVirtual>3920.8</SaldoMonedaVirtual>
+            </MonedaVirtual>
+        </IDMonedas>
+    </Declarado>
+</dec:Declaracion>
+</soapenv:Body>
+</soapenv:Envelope>
