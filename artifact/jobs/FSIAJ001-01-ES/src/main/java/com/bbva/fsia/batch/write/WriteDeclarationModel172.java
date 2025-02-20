@@ -10,15 +10,12 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.WritableResource;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 
@@ -38,37 +35,35 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclarationModel172>
     @Override
     public void write(List<? extends DeclarationModel172> list) throws Exception {
         if (list == null || list.isEmpty()) {
-            System.out.println("No data to write");
+            LOGGER.warn("No data to write.");
             return;
         }
 
-        System.out.println("⏳ Collecting declared entities...");
+        LOGGER.info("⏳ Collecting declared entities...");
+
         if (declarationModel.getCabecera() == null && !list.isEmpty()) {
             declarationModel.setCabecera(list.get(0).getCabecera());
         }
+
         if (declarationModel.getDeclaredEntities() == null) {
             declarationModel.setDeclaredEntities(new ArrayList<>());
         }
+
         for (DeclarationModel172 item : list) {
             declarationModel.getDeclaredEntities().addAll(item.getDeclaredEntities());
         }
 
         File outputFile = resource.getFile();
         File parentDir = outputFile.getParentFile();
-        if (!parentDir.exists()) {
-            boolean created = parentDir.mkdirs();
-            System.out.println("✅ Created output directory: " + parentDir.getAbsolutePath());
+        if (!parentDir.exists() && parentDir.mkdirs()) {
+            LOGGER.info("✅ Created output directory: {}", parentDir.getAbsolutePath());
         }
 
-        System.out.println("📂 Writing XML to: " + outputFile.getAbsolutePath());
+        LOGGER.info("📂 Writing XML to: {}", outputFile.getAbsolutePath());
 
         try (OutputStream os = resource.getOutputStream(); StringWriter stringWriter = new StringWriter()) {
-            JAXBContext jaxbContext = JAXBContext.newInstance(DeclarationModel172.class);
-            Marshaller marshaller = jaxbContext.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
-
-            // ✅ Write the SOAP Envelope
+            // ✅ XML Header
             stringWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
             stringWriter.write("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n");
             stringWriter.write("                  xmlns:dec=\"https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/Declaracion.xsd\"\n");
@@ -77,17 +72,60 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclarationModel172>
             stringWriter.write("<soapenv:Header/>\n");
             stringWriter.write("<soapenv:Body>\n");
 
-            marshaller.marshal(declarationModel, stringWriter);
+            // ✅ Start Declaracion
+            stringWriter.write("<dec:Declaracion>\n");
+
+            // ✅ Write Header (Cabecera)
+            stringWriter.write("    <dec1:Cabecera>\n");
+            stringWriter.write("        <dec1:TipoComunicacion>A0</dec1:TipoComunicacion>\n");
+            stringWriter.write("        <dec1:Modelo>172</dec1:Modelo>\n");
+            stringWriter.write("        <dec1:Ejercicio>2023</dec1:Ejercicio>\n");
+            stringWriter.write("        <dec1:IDVersionModelo>1.0</dec1:IDVersionModelo>\n");
+            stringWriter.write("        <dec1:IDDeclarante>\n");
+            stringWriter.write("            <dec1:NIF>A48265169</dec1:NIF>\n");
+            stringWriter.write("            <dec1:NombreRazon>BANCO BILBAO VIZCAYA ARGENTARIA S.A.</dec1:NombreRazon>\n");
+            stringWriter.write("            <dec1:NIFRepresentante>XXXXXXXX</dec1:NIFRepresentante>\n");
+            stringWriter.write("        </dec1:IDDeclarante>\n");
+            stringWriter.write("    </dec1:Cabecera>\n");
+
+            // ✅ Write Each DeclaredEntity using "dec1"
+            for (DeclaredEntity entity : declarationModel.getDeclaredEntities()) {
+                stringWriter.write("    <dec1:Declarado>\n");
+                stringWriter.write("        <dec1:IDRegistroDeclarado>" +  entity.getDeclaredRecordId() + "</dec1:IDRegistroDeclarado>\n"); // Integer format
+                stringWriter.write("        <dec1:Clave>" + entity.getKey() + "</dec1:Clave>\n");
+                stringWriter.write("        <dec1:NombreRazon>" + entity.getFullName() + "</dec1:NombreRazon>\n");
+
+                // ✅ Address
+                stringWriter.write("        <dec1:Domicilio>\n");
+                stringWriter.write("            <dec1:CodigoPais>" + entity.getAddress().getCountry() + "</dec1:CodigoPais>\n");
+                stringWriter.write("        </dec1:Domicilio>\n");
+
+                // ✅ Virtual Currency
+                if (entity.getVirtualCurrencies() != null && !entity.getVirtualCurrencies().isEmpty()) {
+                    stringWriter.write("        <dec1:IDMonedas>\n");
+                    stringWriter.write("            <dec1:TipoMoneda>V</dec1:TipoMoneda>\n");
+                    stringWriter.write("            <dec1:MonedaVirtual>\n");
+                    stringWriter.write("                <dec1:DenominacionMonedaVirtual>" + entity.getVirtualCurrencies().get(0).getCurrencyName() + "</dec1:DenominacionMonedaVirtual>\n");
+                    stringWriter.write("                <dec1:SiglasMonedaVirtual>" + entity.getVirtualCurrencies().get(0).getCurrencySymbol() + "</dec1:SiglasMonedaVirtual>\n");
+                    stringWriter.write("                <dec1:NumMonedas>" + entity.getVirtualCurrencies().get(0).getNumberOfUnits() + "</dec1:NumMonedas>\n");
+                    stringWriter.write("                <dec1:FechaFinCustodia>" + entity.getVirtualCurrencies().get(0).getCustodyEndDate() + "</dec1:FechaFinCustodia>\n");
+                    stringWriter.write("            </dec1:MonedaVirtual>\n");
+                    stringWriter.write("        </dec1:IDMonedas>\n");
+                }
+
+                stringWriter.write("    </dec1:Declarado>\n");
+            }
+
+            // ✅ Close Declaracion
+            stringWriter.write("</dec:Declaracion>\n");
 
             stringWriter.write("</soapenv:Body>\n");
             stringWriter.write("</soapenv:Envelope>\n");
 
             os.write(stringWriter.toString().getBytes());
-            System.out.println("✅ XML writing completed successfully!");
+            LOGGER.info("✅ XML writing completed successfully!");
         } catch (Exception e) {
-            System.out.println("❌ Error while writing XML: " + e.getMessage());
-            e.printStackTrace();
+            LOGGER.error("❌ Error while writing XML: {}", e.getMessage(), e);
         }
     }
-
 }
