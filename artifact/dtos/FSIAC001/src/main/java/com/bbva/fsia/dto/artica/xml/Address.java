@@ -10,18 +10,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Address {
 
-    @XmlElement(name = "CodigoPais")
+
     private String country;
-    @XmlElement(name = "NombreMunicipio")
+
     private String city;
-    @XmlElement(name = "NombreVía")
+
     private String street;
-    @XmlElement(name = "Numeración")
+
     private String number;
-    @XmlElement(name = "CódigoPostal")
+
     private String postalCode;
 
     public String getCountry() {

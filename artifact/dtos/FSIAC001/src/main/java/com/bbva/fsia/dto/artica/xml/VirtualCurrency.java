@@ -10,26 +10,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 
-@XmlRootElement(name = "MonedaVirtual")
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class VirtualCurrency {
 
-    @XmlElement(name = "TipoMoneda")
+
     private String currencyType;
-    @XmlElement(name = "DenominaciónMonedaVirtual")
+
     private String currencyName;
-    @XmlElement(name = "SiglasMonedaVirtual")
+
     private String currencySymbol;
-    @XmlElement(name = "NumMonedas")
+
     private Integer numberOfUnits;
-    @XmlElement(name = "ValorMonedas")
+
     private Double currencyValue;
-    @XmlElement(name = "OrigenValorMonedas")
+
     private String valueSource;
-    @XmlElement(name = "FechaFinCustodia")
+
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date custodyEndDate;
-    @XmlElement(name = "SaldoMonedaVirtual")
+
     private Double balanceAtYearEnd;
 
 

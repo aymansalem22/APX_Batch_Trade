@@ -62,20 +62,13 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclarationModel172>
         LOGGER.info("📂 Writing XML to: {}", outputFile.getAbsolutePath());
 
         try (OutputStream os = resource.getOutputStream(); StringWriter stringWriter = new StringWriter()) {
-
-            // ✅ XML Header
             stringWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
             stringWriter.write("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n");
             stringWriter.write("                  xmlns:dec=\"https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/Declaracion.xsd\"\n");
             stringWriter.write("                  xmlns:dec1=\"https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/DeclaracionInformativa.xsd\">\n");
-
             stringWriter.write("<soapenv:Header/>\n");
             stringWriter.write("<soapenv:Body>\n");
-
-            // ✅ Start Declaracion
             stringWriter.write("<dec:Declaracion>\n");
-
-            // ✅ Write Header (Cabecera)
             stringWriter.write("    <dec1:Cabecera>\n");
             stringWriter.write("        <dec1:TipoComunicacion>A0</dec1:TipoComunicacion>\n");
             stringWriter.write("        <dec1:Modelo>172</dec1:Modelo>\n");
@@ -88,37 +81,26 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclarationModel172>
             stringWriter.write("        </dec1:IDDeclarante>\n");
             stringWriter.write("    </dec1:Cabecera>\n");
 
-            // ✅ Write Each DeclaredEntity using "dec1"
             for (DeclaredEntity entity : declarationModel.getDeclaredEntities()) {
                 stringWriter.write("    <dec1:Declarado>\n");
-                stringWriter.write("        <dec1:IDRegistroDeclarado>" +  entity.getDeclaredRecordId() + "</dec1:IDRegistroDeclarado>\n"); // Integer format
+                stringWriter.write("        <dec1:IDRegistroDeclarado>" + entity.getDeclaredRecordId() + "</dec1:IDRegistroDeclarado>\n");
                 stringWriter.write("        <dec1:Clave>" + entity.getKey() + "</dec1:Clave>\n");
                 stringWriter.write("        <dec1:NombreRazon>" + entity.getFullName() + "</dec1:NombreRazon>\n");
-
-                // ✅ Address
                 stringWriter.write("        <dec1:Domicilio>\n");
                 stringWriter.write("            <dec1:CodigoPais>" + entity.getAddress().getCountry() + "</dec1:CodigoPais>\n");
                 stringWriter.write("        </dec1:Domicilio>\n");
-
-                // ✅ Virtual Currency
-                if (entity.getVirtualCurrencies() != null && !entity.getVirtualCurrencies().isEmpty()) {
-                    stringWriter.write("        <dec1:IDMonedas>\n");
-                    stringWriter.write("            <dec1:TipoMoneda>V</dec1:TipoMoneda>\n");
-                    stringWriter.write("            <dec1:MonedaVirtual>\n");
-                    stringWriter.write("                <dec1:DenominacionMonedaVirtual>" + entity.getVirtualCurrencies().get(0).getCurrencyName() + "</dec1:DenominacionMonedaVirtual>\n");
-                    stringWriter.write("                <dec1:SiglasMonedaVirtual>" + entity.getVirtualCurrencies().get(0).getCurrencySymbol() + "</dec1:SiglasMonedaVirtual>\n");
-                    stringWriter.write("                <dec1:NumMonedas>" + entity.getVirtualCurrencies().get(0).getNumberOfUnits() + "</dec1:NumMonedas>\n");
-                    stringWriter.write("                <dec1:FechaFinCustodia>" + entity.getVirtualCurrencies().get(0).getCustodyEndDate() + "</dec1:FechaFinCustodia>\n");
-                    stringWriter.write("            </dec1:MonedaVirtual>\n");
-                    stringWriter.write("        </dec1:IDMonedas>\n");
-                }
-
+                stringWriter.write("        <dec1:IDMonedas>\n");
+                stringWriter.write("            <dec1:TipoMoneda>V</dec1:TipoMoneda>\n");
+                stringWriter.write("            <dec1:MonedaVirtual>\n");
+                stringWriter.write("                <dec1:DenominacionMonedaVirtual>" + entity.getVirtualCurrencies().get(0).getCurrencyName() + "</dec1:DenominacionMonedaVirtual>\n");
+                stringWriter.write("                <dec1:SiglasMonedaVirtual>" + entity.getVirtualCurrencies().get(0).getCurrencySymbol() + "</dec1:SiglasMonedaVirtual>\n");
+                stringWriter.write("                <dec1:NumMonedas>" + entity.getVirtualCurrencies().get(0).getNumberOfUnits() + "</dec1:NumMonedas>\n");
+                stringWriter.write("                <dec1:FechaFinCustodia>" + entity.getVirtualCurrencies().get(0).getCustodyEndDate() + "</dec1:FechaFinCustodia>\n");
+                stringWriter.write("            </dec1:MonedaVirtual>\n");
+                stringWriter.write("        </dec1:IDMonedas>\n");
                 stringWriter.write("    </dec1:Declarado>\n");
             }
-
-            // ✅ Close Declaracion
             stringWriter.write("</dec:Declaracion>\n");
-
             stringWriter.write("</soapenv:Body>\n");
             stringWriter.write("</soapenv:Envelope>\n");
 
@@ -129,3 +111,5 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclarationModel172>
         }
     }
 }
+
+

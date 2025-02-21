@@ -6,16 +6,15 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import javax.xml.bind.annotation.*;
 import java.util.List;
 
-@XmlRootElement(name = "dec:Declaracion")
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class DeclarationModel172 {
 
 
-    @XmlElement(name = "Cabecera")
+
     private Header cabecera;
 
 
-    @XmlElement(name = "Declarado") // ✅ Each item inside will be <Declarado>
+
     private List<DeclaredEntity> declaredEntities;
 
 

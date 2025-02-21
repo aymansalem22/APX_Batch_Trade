@@ -6,20 +6,18 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import javax.xml.bind.annotation.*;
 import java.util.List;
 
-@XmlRootElement(name = "DeclaredEntity")
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class DeclaredEntity {
 
-    @XmlElement(name = "IDRegistroDeclarado")
+
     private Integer declaredRecordId;
-    @XmlElement(name = "Clave")
+
     private String key;
-    @XmlElement(name = "NombreRazon")
+
     private String fullName;
-    @XmlElement(name = "Domicilio")
+
     private Address address;
-    @XmlElementWrapper(name = "IDMonedas") // ✅ Wraps all currencies inside <IDMonedas>
-    @XmlElement(name = "MonedaVirtual") // ✅ Ensures each currency is inside <MonedaVirtual>
+
     private List<VirtualCurrency> virtualCurrencies;
 
 

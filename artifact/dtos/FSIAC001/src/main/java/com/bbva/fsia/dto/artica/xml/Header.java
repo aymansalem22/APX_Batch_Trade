@@ -9,18 +9,17 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
-@XmlRootElement(name = "Cabecera")
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Header {
-    @XmlElement(name = "TipoComunicacion")
+
     private String communicationType;
-    @XmlElement(name = "Modelo")
+
     private String model;
-    @XmlElement(name = "Ejercicio")
+
     private String fiscalYear;
-    @XmlElement(name = "IDVersionModelo")
+
     private String modelVersionId;
-    @XmlElement(name = "IDDeclarante")
+
     private Declarant declarant;
 
     public String getCommunicationType() {

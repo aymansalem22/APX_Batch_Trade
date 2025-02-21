@@ -8,19 +8,18 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "IDDeclarante")
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Declarant {
-    @XmlElement(name = "NIF") // ✅ Matches <NIF> in XML
+
     private String taxId;
 
-    @XmlElement(name = "NombreRazon") // ✅ Matches <NombreRazon> in XML
+
     private String companyName;
 
-    @XmlElement(name = "NIFRepresentante") // ✅ Matches <NIFRepresentante> in XML
+
     private String representativeTaxId; // New field for representative NIF
 
-    @XmlElement(name = "PersonaContacto")
+
     private ContactPerson contactPerson;
 
     public String getTaxId() {

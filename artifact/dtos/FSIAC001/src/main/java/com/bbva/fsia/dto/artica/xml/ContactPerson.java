@@ -8,13 +8,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "ContactPerson")
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class ContactPerson {
 
-    @XmlElement(name = "Telefono")
+
     private String phone;
-    @XmlElement(name = "NombreCompleto")
+
     private String fullName;
 
     public String getPhone() {
