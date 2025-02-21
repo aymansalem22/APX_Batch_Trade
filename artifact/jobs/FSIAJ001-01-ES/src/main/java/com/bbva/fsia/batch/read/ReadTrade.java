@@ -57,7 +57,7 @@ public class ReadTrade implements ItemReader<TradeOperation>, StepExecutionListe
         if (line != null) {
             List<String> values = parseLineTrade(line);
             TradeOperation trade = new TradeOperation();
-            setDoubleValue(values, 0, trade::setGfTradeId);
+            setDoubleValue(values, 0, value -> trade.setGfTradeId((int) value));
             setDoubleValue(values, 1, trade::setGfOrderId);
             trade.setContractId(getValue(values, 2));
             trade.setClients(getValue(values, 3));
@@ -65,7 +65,7 @@ public class ReadTrade implements ItemReader<TradeOperation>, StepExecutionListe
             parseDate(values, 5).ifPresent(date -> trade.setGfTrdDate(Date.valueOf(date)));
             trade.setGfAssetPairName(getValue(values, 6));
             trade.setTradeAmountAssetName(getValue(values, 7));
-            setDoubleValue(values, 8, trade::setGfTradeEx1Amount);
+            setDoubleValue(values, 8, value -> trade.setGfTradeEx1Amount((int) value));
             setDoubleValue(values, 9, trade::setGfGrossPriceAmount);
             trade.setGrossPriceAssetName(getValue(values, 10));
             setDoubleValue(values, 11, trade::setGfGrossEx1Amount);

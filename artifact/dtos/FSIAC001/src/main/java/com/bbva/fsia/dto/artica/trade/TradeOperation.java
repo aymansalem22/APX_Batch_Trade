@@ -12,7 +12,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 public class TradeOperation implements Serializable  {
 	private static final long serialVersionUID = 2931699728946643245L;
 
-	private Double gfTradeId;
+	private Integer gfTradeId;
 	private Double gfOrderId;
 	private String contractId;
 	private String clients;
@@ -20,7 +20,7 @@ public class TradeOperation implements Serializable  {
 	private Date gfTrdDate;
 	private String gfAssetPairName;
 	private String tradeAmountAssetName;
-	private Double gfTradeEx1Amount;
+	private Integer gfTradeEx1Amount;
 	private Double gfGrossPriceAmount;
 	private String grossPriceAssetName;
 	private Double gfGrossEx1Amount;
@@ -42,11 +42,12 @@ public class TradeOperation implements Serializable  {
 	private Double gfBrokerageFee1Amount;
 	private Double gfBrokerageCurrencyId;
 
-	public Double getGfTradeId() {
+
+	public Integer getGfTradeId() {
 		return gfTradeId;
 	}
 
-	public void setGfTradeId(Double gfTradeId) {
+	public void setGfTradeId(Integer gfTradeId) {
 		this.gfTradeId = gfTradeId;
 	}
 
@@ -106,11 +107,11 @@ public class TradeOperation implements Serializable  {
 		this.tradeAmountAssetName = tradeAmountAssetName;
 	}
 
-	public Double getGfTradeEx1Amount() {
+	public Integer getGfTradeEx1Amount() {
 		return gfTradeEx1Amount;
 	}
 
-	public void setGfTradeEx1Amount(Double gfTradeEx1Amount) {
+	public void setGfTradeEx1Amount(Integer gfTradeEx1Amount) {
 		this.gfTradeEx1Amount = gfTradeEx1Amount;
 	}
 

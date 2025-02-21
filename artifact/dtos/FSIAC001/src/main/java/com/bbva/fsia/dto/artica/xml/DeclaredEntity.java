@@ -11,7 +11,7 @@ import java.util.List;
 public class DeclaredEntity {
 
     @XmlElement(name = "IDRegistroDeclarado")
-    private Double declaredRecordId;
+    private Integer declaredRecordId;
     @XmlElement(name = "Clave")
     private String key;
     @XmlElement(name = "NombreRazon")
@@ -23,11 +23,11 @@ public class DeclaredEntity {
     private List<VirtualCurrency> virtualCurrencies;
 
 
-    public Double getDeclaredRecordId() {
+    public Integer getDeclaredRecordId() {
         return declaredRecordId;
     }
 
-    public void setDeclaredRecordId(Double declaredRecordId) {
+    public void setDeclaredRecordId(Integer declaredRecordId) {
         this.declaredRecordId = declaredRecordId;
     }
 

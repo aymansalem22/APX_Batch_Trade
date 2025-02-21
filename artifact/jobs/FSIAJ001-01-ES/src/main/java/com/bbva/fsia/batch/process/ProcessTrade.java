@@ -63,7 +63,7 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclarationM
                 virtualCurrency.setCurrencyType("V");
                 virtualCurrency.setCurrencyName(trade.getGfAssetPairName());
                 virtualCurrency.setCurrencySymbol(trade.getTradeAmountAssetName());
-                virtualCurrency.setNumberOfUnits(trade.getGfTradeEx1Amount() != null ? trade.getGfTradeEx1Amount() : 0.0);
+                virtualCurrency.setNumberOfUnits(trade.getGfTradeEx1Amount() != null ? trade.getGfTradeEx1Amount() : 0);
                 virtualCurrency.setCurrencyValue(trade.getGfNetPriceAmount() != null ? trade.getGfNetPriceAmount() : 0.0);
                 virtualCurrency.setValueSource("CoinMarketCap");
 

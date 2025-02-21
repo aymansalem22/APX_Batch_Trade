@@ -17,7 +17,7 @@
         </dec1:IDDeclarante>
     </dec1:Cabecera>
     <dec1:Declarado>
-        <dec1:IDRegistroDeclarado>123456.0</dec1:IDRegistroDeclarado>
+        <dec1:IDRegistroDeclarado>123456</dec1:IDRegistroDeclarado>
         <dec1:Clave>T</dec1:Clave>
         <dec1:NombreRazon>John Doe, Jane Smith</dec1:NombreRazon>
         <dec1:Domicilio>
@@ -28,13 +28,13 @@
             <dec1:MonedaVirtual>
                 <dec1:DenominacionMonedaVirtual>BTC/EUR</dec1:DenominacionMonedaVirtual>
                 <dec1:SiglasMonedaVirtual>BTC</dec1:SiglasMonedaVirtual>
-                <dec1:NumMonedas>2.5</dec1:NumMonedas>
+                <dec1:NumMonedas>2</dec1:NumMonedas>
                 <dec1:FechaFinCustodia>2024-01-30</dec1:FechaFinCustodia>
             </dec1:MonedaVirtual>
         </dec1:IDMonedas>
     </dec1:Declarado>
     <dec1:Declarado>
-        <dec1:IDRegistroDeclarado>234567.0</dec1:IDRegistroDeclarado>
+        <dec1:IDRegistroDeclarado>234567</dec1:IDRegistroDeclarado>
         <dec1:Clave>T</dec1:Clave>
         <dec1:NombreRazon>Alice Johnson</dec1:NombreRazon>
         <dec1:Domicilio>
@@ -45,7 +45,7 @@
             <dec1:MonedaVirtual>
                 <dec1:DenominacionMonedaVirtual>ETH/USD</dec1:DenominacionMonedaVirtual>
                 <dec1:SiglasMonedaVirtual>ETH</dec1:SiglasMonedaVirtual>
-                <dec1:NumMonedas>1.8</dec1:NumMonedas>
+                <dec1:NumMonedas>1</dec1:NumMonedas>
                 <dec1:FechaFinCustodia>2024-01-29</dec1:FechaFinCustodia>
             </dec1:MonedaVirtual>
         </dec1:IDMonedas>

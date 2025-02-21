@@ -21,7 +21,7 @@ public class VirtualCurrency {
     @XmlElement(name = "SiglasMonedaVirtual")
     private String currencySymbol;
     @XmlElement(name = "NumMonedas")
-    private Double numberOfUnits;
+    private Integer numberOfUnits;
     @XmlElement(name = "ValorMonedas")
     private Double currencyValue;
     @XmlElement(name = "OrigenValorMonedas")
@@ -58,11 +58,12 @@ public class VirtualCurrency {
         this.currencySymbol = currencySymbol;
     }
 
-    public Double getNumberOfUnits() {
+
+    public Integer getNumberOfUnits() {
         return numberOfUnits;
     }
 
-    public void setNumberOfUnits(Double numberOfUnits) {
+    public void setNumberOfUnits(Integer numberOfUnits) {
         this.numberOfUnits = numberOfUnits;
     }
 
@@ -108,12 +109,12 @@ public class VirtualCurrency {
 
         VirtualCurrency that = (VirtualCurrency) o;
 
-        return new EqualsBuilder().append(currencyType, that.currencyType).append(currencyName, that.currencyName).append(currencySymbol, that.currencySymbol).append(numberOfUnits, that.numberOfUnits).append(currencyValue, that.currencyValue).append(valueSource, that.valueSource).append(custodyEndDate, that.custodyEndDate).isEquals();
+        return new EqualsBuilder().append(currencyType, that.currencyType).append(currencyName, that.currencyName).append(currencySymbol, that.currencySymbol).append(numberOfUnits, that.numberOfUnits).append(currencyValue, that.currencyValue).append(valueSource, that.valueSource).append(custodyEndDate, that.custodyEndDate).append(balanceAtYearEnd, that.balanceAtYearEnd).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(currencyType).append(currencyName).append(currencySymbol).append(numberOfUnits).append(currencyValue).append(valueSource).append(custodyEndDate).toHashCode();
+        return new HashCodeBuilder(17, 37).append(currencyType).append(currencyName).append(currencySymbol).append(numberOfUnits).append(currencyValue).append(valueSource).append(custodyEndDate).append(balanceAtYearEnd).toHashCode();
     }
 
     @Override
@@ -125,7 +126,8 @@ public class VirtualCurrency {
                 ", numberOfUnits=" + numberOfUnits +
                 ", currencyValue=" + currencyValue +
                 ", valueSource='" + valueSource + '\'' +
-                ", custodyEndDate='" + custodyEndDate + '\'' +
+                ", custodyEndDate=" + custodyEndDate +
+                ", balanceAtYearEnd=" + balanceAtYearEnd +
                 '}';
     }
 }
