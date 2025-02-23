@@ -3,7 +3,6 @@ package com.bbva.fsia.batch.write;
 
 import com.bbva.fsia.dto.artica.xml.DeclarationModel172;
 import com.bbva.fsia.dto.artica.xml.DeclaredEntity;
-import com.bbva.fsia.dto.artica.xml.VirtualCurrency;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemWriter;

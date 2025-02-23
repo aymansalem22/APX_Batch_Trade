@@ -26,7 +26,7 @@ public class VirtualCurrency {
 
     private String valueSource;
 
-    @XmlJavaTypeAdapter(DateAdapter.class)
+
     private Date custodyEndDate;
 
     private Double balanceAtYearEnd;
