@@ -1,114 +1,136 @@
 package com.bbva.fsia.batch.write;
 
 
-import com.bbva.fsia.dto.artica.xml.DeclarationModel172;
-import com.bbva.fsia.dto.artica.xml.DeclaredEntity;
+import com.bbva.fsia.dto.artica.xml.*;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
+import com.thoughtworks.xstream.converters.basic.DateConverter;
+import com.thoughtworks.xstream.converters.collections.CollectionConverter;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
+import com.thoughtworks.xstream.mapper.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemWriter;
+
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.WritableResource;
+import org.springframework.util.Assert;
 
-import java.io.File;
-import java.io.OutputStream;
-import java.io.StringWriter;
+
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
-
-
 
 public class WriteDeclarationModel172 implements ItemWriter<DeclarationModel172> {
     private static final Logger LOGGER = LoggerFactory.getLogger(WriteDeclarationModel172.class);
 
-    private WritableResource resource; // ✅ Use WritableResource
-    private DeclarationModel172 declarationModel = new DeclarationModel172(); // ✅ Store all declared entities
-    private static final SimpleDateFormat XML_DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy"); // ✅ Correct Date Format
 
-    public void setResource(Resource resource) {
-        this.resource = (WritableResource) resource; // ✅ Ensure it's writable
+
+    private Resource resource;
+    private XStream xstream;
+
+    public WriteDeclarationModel172() {
+        xstream = new XStream(new StaxDriver());
+        xstream.autodetectAnnotations(true); // Enable XStream annotations
+
+        // Configure XStream to use the correct aliases
+        xstream.alias("Declaracion", DeclarationModel172.class);
+        xstream.alias("Cabecera", Header.class);
+        xstream.alias("IDDeclarante", Declarant.class);
+        xstream.alias("PersonaContacto", ContactPerson.class);
+        xstream.alias("Declarado", DeclaredEntity.class);
+        xstream.alias("Domicilio", Address.class);
+        xstream.alias("MonedaVirtual", VirtualCurrency.class);
+
+        // Configure XStream to handle namespaces
+        xstream.alias("soapenv:Envelope", Envelope.class);
+        xstream.alias("soapenv:Body", Body.class);
+        xstream.alias("dec:Declaracion", DeclarationModel172.class);
+        xstream.alias("dec1:Cabecera", Header.class);
+        xstream.alias("dec1:Declarado", DeclaredEntity.class);
+
+        // Register custom converters
+        xstream.registerConverter(new CustomDateConverter());
+        xstream.registerConverter(new CustomCollectionConverter(xstream.getMapper()));
     }
 
+    public void setResource(Resource resource) {
+        this.resource = resource;
+    }
 
     @Override
-    public void write(List<? extends DeclarationModel172> list) throws Exception {
-        if (list == null || list.isEmpty()) {
-            LOGGER.warn("No data to write.");
-            return;
-        }
+    public void write(List<? extends DeclarationModel172> items) throws Exception {
+        Assert.notNull(resource, "Resource must not be null");
 
-        LOGGER.info("⏳ Collecting declared entities...");
+        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(resource.getFile()), StandardCharsets.UTF_8)) {
+            // Write the XML declaration
+            writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 
-        if (declarationModel.getCabecera() == null && !list.isEmpty()) {
-            declarationModel.setCabecera(list.get(0).getCabecera());
-        }
+            // Write the root element with namespaces
+            writer.write("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n" +
+                    "                  xmlns:dec=\"https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/Declaracion.xsd\"\n" +
+                    "                  xmlns:dec1=\"https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/DeclaracionInformativa.xsd\">\n");
 
-        if (declarationModel.getDeclaredEntities() == null) {
-            declarationModel.setDeclaredEntities(new ArrayList<>());
-        }
+            // Write the <soapenv:Header/> tag
+            writer.write("    <soapenv:Header/>\n");
 
-        for (DeclarationModel172 item : list) {
-            declarationModel.getDeclaredEntities().addAll(item.getDeclaredEntities());
-        }
+            // Write the body
+            writer.write("    <soapenv:Body>\n");
 
-        File outputFile = resource.getFile();
-        File parentDir = outputFile.getParentFile();
-        if (!parentDir.exists() && parentDir.mkdirs()) {
-            LOGGER.info("✅ Created output directory: {}", parentDir.getAbsolutePath());
-        }
+            // Write the <dec:Declaracion> tag
+            writer.write("        <dec:Declaracion>\n");
 
-        LOGGER.info("📂 Writing XML to: {}", outputFile.getAbsolutePath());
-
-        try (OutputStream os = resource.getOutputStream(); StringWriter stringWriter = new StringWriter()) {
-            stringWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-            stringWriter.write("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n");
-            stringWriter.write("                  xmlns:dec=\"https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/Declaracion.xsd\"\n");
-            stringWriter.write("                  xmlns:dec1=\"https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/DeclaracionInformativa.xsd\">\n");
-            stringWriter.write("<soapenv:Header/>\n");
-            stringWriter.write("<soapenv:Body>\n");
-            stringWriter.write("<dec:Declaracion>\n");
-            stringWriter.write("    <dec1:Cabecera>\n");
-            stringWriter.write("        <dec1:TipoComunicacion>A0</dec1:TipoComunicacion>\n");
-            stringWriter.write("        <dec1:Modelo>172</dec1:Modelo>\n");
-            stringWriter.write("        <dec1:Ejercicio>2023</dec1:Ejercicio>\n");
-            stringWriter.write("        <dec1:IDVersionModelo>1.0</dec1:IDVersionModelo>\n");
-            stringWriter.write("        <dec1:IDDeclarante>\n");
-            stringWriter.write("            <dec1:NIF>A48265169</dec1:NIF>\n");
-            stringWriter.write("            <dec1:NombreRazon>BANCO BILBAO VIZCAYA ARGENTARIA S.A.</dec1:NombreRazon>\n");
-            stringWriter.write("            <dec1:NIFRepresentante>XXXXXXXX</dec1:NIFRepresentante>\n");
-            stringWriter.write("        </dec1:IDDeclarante>\n");
-            stringWriter.write("    </dec1:Cabecera>\n");
-
-            for (DeclaredEntity entity : declarationModel.getDeclaredEntities()) {
-                stringWriter.write("    <dec1:Declarado>\n");
-                stringWriter.write("        <dec1:IDRegistroDeclarado>" + entity.getDeclaredRecordId() + "</dec1:IDRegistroDeclarado>\n");
-                stringWriter.write("        <dec1:Clave>" + entity.getKey() + "</dec1:Clave>\n");
-                stringWriter.write("        <dec1:NombreRazon>" + entity.getFullName() + "</dec1:NombreRazon>\n");
-                stringWriter.write("        <dec1:Domicilio>\n");
-                stringWriter.write("            <dec1:CodigoPais>" + entity.getAddress().getCountry() + "</dec1:CodigoPais>\n");
-                stringWriter.write("        </dec1:Domicilio>\n");
-                stringWriter.write("        <dec1:IDMonedas>\n");
-                stringWriter.write("            <dec1:TipoMoneda>V</dec1:TipoMoneda>\n");
-                stringWriter.write("            <dec1:MonedaVirtual>\n");
-                stringWriter.write("                <dec1:DenominacionMonedaVirtual>" + entity.getVirtualCurrencies().get(0).getCurrencyName() + "</dec1:DenominacionMonedaVirtual>\n");
-                stringWriter.write("                <dec1:SiglasMonedaVirtual>" + entity.getVirtualCurrencies().get(0).getCurrencySymbol() + "</dec1:SiglasMonedaVirtual>\n");
-                stringWriter.write("                <dec1:NumMonedas>" + entity.getVirtualCurrencies().get(0).getNumberOfUnits() + "</dec1:NumMonedas>\n");
-                stringWriter.write("                <dec1:FechaFinCustodia>" + entity.getVirtualCurrencies().get(0).getCustodyEndDate() + "</dec1:FechaFinCustodia>\n");
-                stringWriter.write("            </dec1:MonedaVirtual>\n");
-                stringWriter.write("        </dec1:IDMonedas>\n");
-                stringWriter.write("    </dec1:Declarado>\n");
+            // Write each item
+            for (DeclarationModel172 item : items) {
+                String xml = xstream.toXML(item);
+                // Remove the XML declaration from the XStream output
+                xml = xml.replace("<?xml version='1.0' encoding='UTF-8'?>", "");
+                writer.write(xml);
             }
-            stringWriter.write("</dec:Declaracion>\n");
-            stringWriter.write("</soapenv:Body>\n");
-            stringWriter.write("</soapenv:Envelope>\n");
 
-            os.write(stringWriter.toString().getBytes());
-            LOGGER.info("✅ XML writing completed successfully!");
-        } catch (Exception e) {
-            LOGGER.error("❌ Error while writing XML: {}", e.getMessage(), e);
+            // Close the <dec:Declaracion>, <soapenv:Body>, and <soapenv:Envelope> tags
+            writer.write("        </dec:Declaracion>\n");
+            writer.write("    </soapenv:Body>\n");
+            writer.write("</soapenv:Envelope>\n");
+        }
+    }
+
+    // Custom Date Converter to remove "class" attributes
+    private static class CustomDateConverter extends AbstractSingleValueConverter {
+        private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        @Override
+        public boolean canConvert(Class type) {
+            LOGGER.info("Checking if CustomDateConverter can convert: {}", type.getName());
+            return Date.class.isAssignableFrom(type);
+        }
+
+        @Override
+        public String toString(Object obj) {
+            LOGGER.info("Converting date: {}", obj);
+            return dateFormat.format((Date) obj);
+        }
+
+        @Override
+        public Object fromString(String s) {
+            return null;
+        }
+    }
+
+    // Custom Collection Converter to remove "class" attributes
+    private static class CustomCollectionConverter extends CollectionConverter {
+        public CustomCollectionConverter(Mapper mapper) {
+            super(mapper);
+        }
+
+        @Override
+        public boolean canConvert(Class type) {
+            LOGGER.info("Checking if CustomCollectionConverter can convert: {}", type.getName());
+            return Collection.class.isAssignableFrom(type);
         }
     }
 }
-
-

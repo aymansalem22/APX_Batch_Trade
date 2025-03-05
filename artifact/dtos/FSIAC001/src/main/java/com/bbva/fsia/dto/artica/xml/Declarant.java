@@ -1,25 +1,25 @@
 package com.bbva.fsia.dto.artica.xml;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 
+
+@XStreamAlias("IDDeclarante")
 public class Declarant {
 
+    @XStreamAlias("NIF")
     private String taxId;
 
-
+    @XStreamAlias("NombreRazon")
     private String companyName;
 
+    @XStreamAlias("NIFRepresentante")
+    private String representativeTaxId;
 
-    private String representativeTaxId; // New field for representative NIF
-
-
+    @XStreamAlias("PersonaContacto")
     private ContactPerson contactPerson;
 
     public String getTaxId() {

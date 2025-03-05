@@ -18,39 +18,34 @@ import java.util.Optional;
 public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclarationModel172> {
         public static final Logger LOGGER = LoggerFactory.getLogger(ProcessTrade.class);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("dd-MM-yyyy");
+
 
         @Override
         public DeclarationModel172 process(TradeOperation trade) throws Exception {
 
-                // ✅ 1. Create Header with Fixed Values
+                // Create Header
                 Header header = new Header();
-                header.setCommunicationType("A0");  // Fixed value
-                header.setModel("172");  // Fixed value
-                header.setFiscalYear("2023");  // Fixed value
-                header.setModelVersionId("1.0");  // Fixed value
+                header.setCommunicationType("A0");
+                header.setModel("172");
+                header.setFiscalYear("2023");
+                header.setModelVersionId("1.0");
 
-                // ✅ 2. Create Declarant (IDDeclarante) and set fixed values
+                // Create Declarant
                 Declarant declarant = new Declarant();
-                declarant.setTaxId("A48265169");  // Fixed value
-                declarant.setCompanyName("BANCO BILBAO VIZCAYA ARGENTARIA S.A.");  // Fixed value
-                declarant.setRepresentativeTaxId("XXXXXXXX");  // Fixed value
+                declarant.setTaxId("A48265169");
+                declarant.setCompanyName("BANCO BILBAO VIZCAYA ARGENTARIA S.A.");
+                declarant.setRepresentativeTaxId("XXXXXXXX");
 
-
-                // ✅ 3. Set Declarant inside Header
-                header.setDeclarant(declarant);
-
-
-                // ✅ 3. Create Contact Person
+                // Create Contact Person
                 ContactPerson contactPerson = new ContactPerson();
                 contactPerson.setPhone("+34987654321");
                 contactPerson.setFullName("John Doe");
 
                 declarant.setContactPerson(contactPerson);
-
                 header.setDeclarant(declarant);
 
-                // ✅ 4. Create Address
+                // Create Address
                 Address address = new Address();
                 address.setCountry("ES");
                 address.setCity("Madrid");
@@ -58,7 +53,7 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclarationM
                 address.setNumber("12");
                 address.setPostalCode("28013");
 
-                // ✅ 5. Create Virtual Currency details
+                // Create Virtual Currency details
                 VirtualCurrency virtualCurrency = new VirtualCurrency();
                 virtualCurrency.setCurrencyType("V");
                 virtualCurrency.setCurrencyName(trade.getGfAssetPairName());
@@ -67,16 +62,17 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclarationM
                 virtualCurrency.setCurrencyValue(trade.getGfNetPriceAmount() != null ? trade.getGfNetPriceAmount() : 0.0);
                 virtualCurrency.setValueSource("CoinMarketCap");
 
+                // Ensure Date Format is Correct
                 if (trade.getGfTrdDate() != null) {
                         virtualCurrency.setCustodyEndDate(trade.getGfTrdDate());
                 } else {
                         virtualCurrency.setCustodyEndDate(null);
                 }
 
-                // ✅ 6. Map Balance at Year End (SaldoMonedaVirtual)
+                // Map Balance at Year End
                 virtualCurrency.setBalanceAtYearEnd(trade.getGfNetAssetAmount() != null ? trade.getGfNetAssetAmount() : 0.0);
 
-                // ✅ 7. Create Declared Entity
+                // Create Declared Entity
                 DeclaredEntity declaredEntity = new DeclaredEntity();
                 declaredEntity.setDeclaredRecordId(trade.getGfTradeId());
                 declaredEntity.setKey("T");
@@ -84,15 +80,20 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclarationM
                 declaredEntity.setAddress(address);
                 declaredEntity.setVirtualCurrencies(Collections.singletonList(virtualCurrency));
 
-                // ✅ 8. Create Declaration Model
+                // Create Declaration Model with Correct Structure
                 DeclarationModel172 declaration = new DeclarationModel172();
                 declaration.setCabecera(header);
-                declaration.setDeclaredEntities(Collections.singletonList(declaredEntity));
-                //print the delcartion model with sout
-                System.out.println("Declaration Model: " + declaration);
-                LOGGER.info("Declaration Model: {}", declaration);
+
+                // Ensure <Declarados> wrapper is included
+                List<DeclaredEntity> declaredEntities = Collections.singletonList(declaredEntity);
+                declaration.setDeclaredEntities(declaredEntities);
+
+                // Debug Output
+                LOGGER.info("Generated DeclarationModel: {}", declaration);
+
                 return declaration;
         }
-
-
 }
+
+
+

@@ -2,54 +2,91 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
                   xmlns:dec="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/Declaracion.xsd"
                   xmlns:dec1="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/DeclaracionInformativa.xsd">
-<soapenv:Header/>
-<soapenv:Body>
-<dec:Declaracion>
-    <dec1:Cabecera>
-        <dec1:TipoComunicacion>A0</dec1:TipoComunicacion>
-        <dec1:Modelo>172</dec1:Modelo>
-        <dec1:Ejercicio>2023</dec1:Ejercicio>
-        <dec1:IDVersionModelo>1.0</dec1:IDVersionModelo>
-        <dec1:IDDeclarante>
-            <dec1:NIF>A48265169</dec1:NIF>
-            <dec1:NombreRazon>BANCO BILBAO VIZCAYA ARGENTARIA S.A.</dec1:NombreRazon>
-            <dec1:NIFRepresentante>XXXXXXXX</dec1:NIFRepresentante>
-        </dec1:IDDeclarante>
-    </dec1:Cabecera>
-    <dec1:Declarado>
-        <dec1:IDRegistroDeclarado>123456</dec1:IDRegistroDeclarado>
-        <dec1:Clave>T</dec1:Clave>
-        <dec1:NombreRazon>John Doe, Jane Smith</dec1:NombreRazon>
-        <dec1:Domicilio>
-            <dec1:CodigoPais>ES</dec1:CodigoPais>
-        </dec1:Domicilio>
-        <dec1:IDMonedas>
-            <dec1:TipoMoneda>V</dec1:TipoMoneda>
-            <dec1:MonedaVirtual>
-                <dec1:DenominacionMonedaVirtual>BTC/EUR</dec1:DenominacionMonedaVirtual>
-                <dec1:SiglasMonedaVirtual>BTC</dec1:SiglasMonedaVirtual>
-                <dec1:NumMonedas>2</dec1:NumMonedas>
-                <dec1:FechaFinCustodia>2024-01-30</dec1:FechaFinCustodia>
-            </dec1:MonedaVirtual>
-        </dec1:IDMonedas>
-    </dec1:Declarado>
-    <dec1:Declarado>
-        <dec1:IDRegistroDeclarado>234567</dec1:IDRegistroDeclarado>
-        <dec1:Clave>T</dec1:Clave>
-        <dec1:NombreRazon>Alice Johnson</dec1:NombreRazon>
-        <dec1:Domicilio>
-            <dec1:CodigoPais>ES</dec1:CodigoPais>
-        </dec1:Domicilio>
-        <dec1:IDMonedas>
-            <dec1:TipoMoneda>V</dec1:TipoMoneda>
-            <dec1:MonedaVirtual>
-                <dec1:DenominacionMonedaVirtual>ETH/USD</dec1:DenominacionMonedaVirtual>
-                <dec1:SiglasMonedaVirtual>ETH</dec1:SiglasMonedaVirtual>
-                <dec1:NumMonedas>1</dec1:NumMonedas>
-                <dec1:FechaFinCustodia>2024-01-29</dec1:FechaFinCustodia>
-            </dec1:MonedaVirtual>
-        </dec1:IDMonedas>
-    </dec1:Declarado>
-</dec:Declaracion>
-</soapenv:Body>
+    <soapenv:Header/>
+    <soapenv:Body>
+        <dec:Declaracion>
+            <Declaracion>
+                <Cabecera>
+                    <TipoComunicacion>A0</TipoComunicacion>
+                    <Modelo>172</Modelo>
+                    <Ejercicio>2023</Ejercicio>
+                    <IDVersionModelo>1.0</IDVersionModelo>
+                    <IDDeclarante>
+                        <NIF>A48265169</NIF>
+                        <NombreRazon>BANCO BILBAO VIZCAYA ARGENTARIA S.A.</NombreRazon>
+                        <NIFRepresentante>XXXXXXXX</NIFRepresentante>
+                        <PersonaContacto>
+                            <Telefono>+34987654321</Telefono>
+                            <NombreRazon>John Doe</NombreRazon>
+                        </PersonaContacto>
+                    </IDDeclarante>
+                </Cabecera>
+                <Declarado>
+                    <IDRegistroDeclarado>123456</IDRegistroDeclarado>
+                    <Clave>T</Clave>
+                    <NombreRazon>John Doe, Jane Smith</NombreRazon>
+                    <Domicilio>
+                        <CodigoPais>ES</CodigoPais>
+                        <NombreMunicipio>Madrid</NombreMunicipio>
+                        <NombreVia>Gran Via</NombreVia>
+                        <Numeracion>12</Numeracion>
+                        <CodigoPostal>28013</CodigoPostal>
+                    </Domicilio>
+                    <IDMonedas class="singleton-list">
+                        <MonedaVirtual>
+                            <TipoMoneda>V</TipoMoneda>
+                            <DenominacionMonedaVirtual>BTC/EUR</DenominacionMonedaVirtual>
+                            <SiglasMonedaVirtual>BTC</SiglasMonedaVirtual>
+                            <NumMonedas>2</NumMonedas>
+                            <ValorMonedas>34950.5</ValorMonedas>
+                            <OrigenValorMonedas>CoinMarketCap</OrigenValorMonedas>
+                            <FechaFinCustodia class="sql-date">2024-01-30</FechaFinCustodia>
+                            <SaldoMonedaVirtual>87450.38</SaldoMonedaVirtual>
+                        </MonedaVirtual>
+                    </IDMonedas>
+                </Declarado>
+            </Declaracion>
+            <Declaracion>
+                <Cabecera>
+                    <TipoComunicacion>A0</TipoComunicacion>
+                    <Modelo>172</Modelo>
+                    <Ejercicio>2023</Ejercicio>
+                    <IDVersionModelo>1.0</IDVersionModelo>
+                    <IDDeclarante>
+                        <NIF>A48265169</NIF>
+                        <NombreRazon>BANCO BILBAO VIZCAYA ARGENTARIA S.A.</NombreRazon>
+                        <NIFRepresentante>XXXXXXXX</NIFRepresentante>
+                        <PersonaContacto>
+                            <Telefono>+34987654321</Telefono>
+                            <NombreRazon>John Doe</NombreRazon>
+                        </PersonaContacto>
+                    </IDDeclarante>
+                </Cabecera>
+                <Declarado>
+                    <IDRegistroDeclarado>234567</IDRegistroDeclarado>
+                    <Clave>T</Clave>
+                    <NombreRazon>Alice Johnson</NombreRazon>
+                    <Domicilio>
+                        <CodigoPais>ES</CodigoPais>
+                        <NombreMunicipio>Madrid</NombreMunicipio>
+                        <NombreVia>Gran Via</NombreVia>
+                        <Numeracion>12</Numeracion>
+                        <CodigoPostal>28013</CodigoPostal>
+                    </Domicilio>
+                    <IDMonedas class="singleton-list">
+                        <MonedaVirtual>
+                            <TipoMoneda>V</TipoMoneda>
+                            <DenominacionMonedaVirtual>ETH/USD</DenominacionMonedaVirtual>
+                            <SiglasMonedaVirtual>ETH</SiglasMonedaVirtual>
+                            <NumMonedas>1</NumMonedas>
+                            <ValorMonedas>2160.4</ValorMonedas>
+                            <OrigenValorMonedas>CoinMarketCap</OrigenValorMonedas>
+                            <FechaFinCustodia class="sql-date">2024-01-29</FechaFinCustodia>
+                            <SaldoMonedaVirtual>3920.8</SaldoMonedaVirtual>
+                        </MonedaVirtual>
+                    </IDMonedas>
+                </Declarado>
+            </Declaracion>
+        </dec:Declaracion>
+    </soapenv:Body>
 </soapenv:Envelope>

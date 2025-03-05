@@ -1,19 +1,17 @@
 package com.bbva.fsia.dto.artica.xml;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
-
+@XStreamAlias("PersonaContacto")
 public class ContactPerson {
 
-
+    @XStreamAlias("Telefono")
     private String phone;
 
+    @XStreamAlias("NombreRazon")
     private String fullName;
 
     public String getPhone() {

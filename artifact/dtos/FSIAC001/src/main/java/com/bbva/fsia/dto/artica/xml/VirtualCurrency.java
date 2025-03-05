@@ -1,36 +1,38 @@
 package com.bbva.fsia.dto.artica.xml;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
 
 
+@XStreamAlias("MonedaVirtual")
 public class VirtualCurrency {
 
-
+    @XStreamAlias("TipoMoneda")
     private String currencyType;
 
+    @XStreamAlias("DenominacionMonedaVirtual")
     private String currencyName;
 
+    @XStreamAlias("SiglasMonedaVirtual")
     private String currencySymbol;
 
+    @XStreamAlias("NumMonedas")
     private Integer numberOfUnits;
 
+    @XStreamAlias("ValorMonedas")
     private Double currencyValue;
 
+    @XStreamAlias("OrigenValorMonedas")
     private String valueSource;
 
-
+    @XStreamAlias("FechaFinCustodia")
     private Date custodyEndDate;
 
+    @XStreamAlias("SaldoMonedaVirtual")
     private Double balanceAtYearEnd;
-
 
 
     public String getCurrencyType() {

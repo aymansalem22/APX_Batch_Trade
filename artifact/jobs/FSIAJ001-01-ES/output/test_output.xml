@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:dec="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/Declaracion.xsd"
+                  xmlns:dec1="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/DeclaracionInformativa.xsd">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <dec:Declaracion>
+<Declaracion><Cabecera><TipoComunicacion>A0</TipoComunicacion><Modelo>172</Modelo><Ejercicio>2023</Ejercicio><IDVersionModelo>1.0</IDVersionModelo><IDDeclarante><NIF>A48265169</NIF><NombreRazon>BANCO BILBAO VIZCAYA ARGENTARIA S.A.</NombreRazon><NIFRepresentante>XXXXXXXX</NIFRepresentante><PersonaContacto><Telefono>+34987654321</Telefono><NombreRazon>John Doe</NombreRazon></PersonaContacto></IDDeclarante></Cabecera><Declarado><IDRegistroDeclarado>123456</IDRegistroDeclarado><Clave>T</Clave><NombreRazon>John Doe, Jane Smith</NombreRazon><Domicilio><CodigoPais>ES</CodigoPais><NombreMunicipio>Madrid</NombreMunicipio><NombreVia>Gran Via</NombreVia><Numeracion>12</Numeracion><CodigoPostal>28013</CodigoPostal></Domicilio><IDMonedas class="singleton-list"><MonedaVirtual><TipoMoneda>V</TipoMoneda><DenominacionMonedaVirtual>BTC/EUR</DenominacionMonedaVirtual><SiglasMonedaVirtual>BTC</SiglasMonedaVirtual><NumMonedas>2</NumMonedas><ValorMonedas>34950.5</ValorMonedas><OrigenValorMonedas>CoinMarketCap</OrigenValorMonedas><FechaFinCustodia class="sql-date">2025-03-05</FechaFinCustodia><SaldoMonedaVirtual>87450.38</SaldoMonedaVirtual></MonedaVirtual></IDMonedas></Declarado></Declaracion>        </dec:Declaracion>
+    </soapenv:Body>
+</soapenv:Envelope>

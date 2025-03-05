@@ -1,7 +1,12 @@
 package com.bbva.fsia.batch;
 
+import java.util.Collections;
 import java.util.HashMap;
 
+import com.bbva.fsia.batch.process.ProcessTrade;
+import com.bbva.fsia.batch.write.WriteDeclarationModel172;
+import com.bbva.fsia.dto.artica.trade.TradeOperation;
+import com.bbva.fsia.dto.artica.xml.DeclarationModel172;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +16,7 @@ import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -43,5 +49,26 @@ public class FSIAJ00101ESFunctionalTest{
 		
 		//TODO implements job launch test Assert's
 		Assert.assertTrue(jobExecution.getExitStatus().equals(ExitStatus.COMPLETED));
+	}
+
+	@Test
+	public void testWrite() throws Exception {
+		WriteDeclarationModel172 writer = new WriteDeclarationModel172();
+		writer.setResource(new FileSystemResource("output/test_output.xml"));
+
+		TradeOperation trade = new TradeOperation();
+		trade.setGfTradeId(123456);
+		trade.setGfAssetPairName("BTC/EUR");
+		trade.setTradeAmountAssetName("BTC");
+		trade.setGfTradeEx1Amount(2);
+		trade.setGfNetPriceAmount(34950.5);
+		trade.setGfTrdDate(new java.sql.Date(System.currentTimeMillis()));
+		trade.setGfNetAssetAmount(87450.38);
+		trade.setClients("John Doe, Jane Smith");
+
+		ProcessTrade processor = new ProcessTrade();
+		DeclarationModel172 declaration = processor.process(trade);
+
+		writer.write(Collections.singletonList(declaration));
 	}
 }

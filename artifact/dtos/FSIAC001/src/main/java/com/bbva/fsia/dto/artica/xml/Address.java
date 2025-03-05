@@ -1,27 +1,27 @@
 package com.bbva.fsia.dto.artica.xml;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 
-
-
+@XStreamAlias("Domicilio")
 public class Address {
 
-
+    @XStreamAlias("CodigoPais")
     private String country;
 
+    @XStreamAlias("NombreMunicipio")
     private String city;
 
+    @XStreamAlias("NombreVia")
     private String street;
 
+    @XStreamAlias("Numeracion")
     private String number;
 
+    @XStreamAlias("CodigoPostal")
     private String postalCode;
 
     public String getCountry() {
