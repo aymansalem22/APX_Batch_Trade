@@ -5,13 +5,13 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
-@XStreamAlias("PersonaContacto")
+@XStreamAlias("dec1:PersonaContacto")
 public class ContactPerson {
 
-    @XStreamAlias("Telefono")
+    @XStreamAlias("dec1:Telefono")
     private String phone;
 
-    @XStreamAlias("NombreRazon")
+    @XStreamAlias("dec1:NombreRazon")
     private String fullName;
 
     public String getPhone() {

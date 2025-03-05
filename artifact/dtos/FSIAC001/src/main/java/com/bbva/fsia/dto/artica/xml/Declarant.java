@@ -7,19 +7,19 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
 
-@XStreamAlias("IDDeclarante")
+@XStreamAlias("dec1:IDDeclarante")
 public class Declarant {
 
-    @XStreamAlias("NIF")
+    @XStreamAlias("dec1:NIF")
     private String taxId;
 
-    @XStreamAlias("NombreRazon")
+    @XStreamAlias("dec1:NombreRazon")
     private String companyName;
 
-    @XStreamAlias("NIFRepresentante")
+    @XStreamAlias("dec1:NIFRepresentante")
     private String representativeTaxId;
 
-    @XStreamAlias("PersonaContacto")
+    @XStreamAlias("dec1:PersonaContacto")
     private ContactPerson contactPerson;
 
     public String getTaxId() {

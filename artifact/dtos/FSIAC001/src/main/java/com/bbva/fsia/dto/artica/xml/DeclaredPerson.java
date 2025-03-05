@@ -2,16 +2,16 @@ package com.bbva.fsia.dto.artica.xml;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-@XStreamAlias("IDDeclarado")
+@XStreamAlias("dec1:IDDeclarado")
 public class DeclaredPerson {
 
-    @XStreamAlias("Clave")
+    @XStreamAlias("dec1:Clave")
     private String key;
 
-    @XStreamAlias("NombreRazon")
+    @XStreamAlias("dec1:NombreRazon")
     private String fullName;
 
-    @XStreamAlias("Domicilio")
+    @XStreamAlias("dec1:Domicilio")
     private Address address;
 
     public String getKey() {

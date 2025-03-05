@@ -30,6 +30,7 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclarationModel172>
 
 
 
+
     private Resource resource;
     private XStream xstream;
 

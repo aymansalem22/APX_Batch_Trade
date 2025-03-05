@@ -8,13 +8,13 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import java.util.List;
 
 
-@XStreamAlias("Declaracion")
+@XStreamAlias("dec1:Declaracion")
 public class DeclarationModel172 {
 
-    @XStreamAlias("Cabecera")
+    @XStreamAlias("dec1:Cabecera")
     private Header cabecera;
 
-    @XStreamImplicit(itemFieldName = "Declarado")
+    @XStreamImplicit(itemFieldName = "dec1:Declarado")
     private List<DeclaredEntity> declaredEntities;
 
 

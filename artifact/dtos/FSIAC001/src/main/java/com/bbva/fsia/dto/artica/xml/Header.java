@@ -6,22 +6,22 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
 
-@XStreamAlias("Cabecera")
+@XStreamAlias("dec1:Cabecera")
 public class Header {
 
-    @XStreamAlias("TipoComunicacion")
+    @XStreamAlias("dec1:TipoComunicacion")
     private String communicationType;
 
-    @XStreamAlias("Modelo")
+    @XStreamAlias("dec1:Modelo")
     private String model;
 
-    @XStreamAlias("Ejercicio")
+    @XStreamAlias("dec1:Ejercicio")
     private String fiscalYear;
 
-    @XStreamAlias("IDVersionModelo")
+    @XStreamAlias("dec1:IDVersionModelo")
     private String modelVersionId;
 
-    @XStreamAlias("IDDeclarante")
+    @XStreamAlias("dec1:IDDeclarante")
     private Declarant declarant;
 
     public String getCommunicationType() {

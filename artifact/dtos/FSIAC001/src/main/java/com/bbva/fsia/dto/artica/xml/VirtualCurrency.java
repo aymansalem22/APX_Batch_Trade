@@ -7,31 +7,31 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import java.util.Date;
 
 
-@XStreamAlias("MonedaVirtual")
+@XStreamAlias("dec1:MonedaVirtual")
 public class VirtualCurrency {
 
-    @XStreamAlias("TipoMoneda")
+    @XStreamAlias("dec1:TipoMoneda")
     private String currencyType;
 
-    @XStreamAlias("DenominacionMonedaVirtual")
+    @XStreamAlias("dec1:DenominacionMonedaVirtual")
     private String currencyName;
 
-    @XStreamAlias("SiglasMonedaVirtual")
+    @XStreamAlias("dec1:SiglasMonedaVirtual")
     private String currencySymbol;
 
-    @XStreamAlias("NumMonedas")
+    @XStreamAlias("dec1:NumMonedas")
     private Integer numberOfUnits;
 
-    @XStreamAlias("ValorMonedas")
+    @XStreamAlias("dec1:ValorMonedas")
     private Double currencyValue;
 
-    @XStreamAlias("OrigenValorMonedas")
+    @XStreamAlias("dec1:OrigenValorMonedas")
     private String valueSource;
 
-    @XStreamAlias("FechaFinCustodia")
+    @XStreamAlias("dec1:FechaFinCustodia")
     private Date custodyEndDate;
 
-    @XStreamAlias("SaldoMonedaVirtual")
+    @XStreamAlias("dec1:SaldoMonedaVirtual")
     private Double balanceAtYearEnd;
 
 

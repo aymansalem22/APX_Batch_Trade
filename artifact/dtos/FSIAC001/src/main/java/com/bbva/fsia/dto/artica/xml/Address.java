@@ -6,22 +6,22 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
 
-@XStreamAlias("Domicilio")
+@XStreamAlias("dec1:Domicilio")
 public class Address {
 
-    @XStreamAlias("CodigoPais")
+    @XStreamAlias("dec1:CodigoPais")
     private String country;
 
-    @XStreamAlias("NombreMunicipio")
+    @XStreamAlias("dec1:NombreMunicipio")
     private String city;
 
-    @XStreamAlias("NombreVia")
+    @XStreamAlias("dec1:NombreVia")
     private String street;
 
-    @XStreamAlias("Numeracion")
+    @XStreamAlias("dec1:Numeracion")
     private String number;
 
-    @XStreamAlias("CodigoPostal")
+    @XStreamAlias("dec1:CodigoPostal")
     private String postalCode;
 
     public String getCountry() {

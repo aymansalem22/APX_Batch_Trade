@@ -8,21 +8,21 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import java.util.List;
 
 
-@XStreamAlias("Declarado")
+@XStreamAlias("dec1:Declarado")
 public class DeclaredEntity {
-    @XStreamAlias("IDRegistroDeclarado")
+    @XStreamAlias("dec1:IDRegistroDeclarado")
     private Integer declaredRecordId;
 
-    @XStreamAlias("Clave")
+    @XStreamAlias("dec1:Clave")
     private String key;
 
-    @XStreamAlias("NombreRazon")
+    @XStreamAlias("dec1:NombreRazon")
     private String fullName;
 
-    @XStreamAlias("Domicilio")
+    @XStreamAlias("dec1:Domicilio")
     private Address address;
 
-    @XStreamAlias("IDMonedas")
+    @XStreamAlias("dec1:IDMonedas")
     private List<VirtualCurrency> virtualCurrencies;
 
     public Integer getDeclaredRecordId() {
