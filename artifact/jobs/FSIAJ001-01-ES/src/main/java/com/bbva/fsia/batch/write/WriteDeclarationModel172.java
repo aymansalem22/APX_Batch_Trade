@@ -39,13 +39,13 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclarationModel172>
         xstream.autodetectAnnotations(true); // Enable XStream annotations
 
         // Configure XStream to use the correct aliases
-        xstream.alias("Declaracion", DeclarationModel172.class);
-        xstream.alias("Cabecera", Header.class);
-        xstream.alias("IDDeclarante", Declarant.class);
-        xstream.alias("PersonaContacto", ContactPerson.class);
-        xstream.alias("Declarado", DeclaredEntity.class);
-        xstream.alias("Domicilio", Address.class);
-        xstream.alias("MonedaVirtual", VirtualCurrency.class);
+        xstream.alias("dec:Declaracion", DeclarationModel172.class);
+        xstream.alias("dec1:Cabecera", Header.class);
+        xstream.alias("dec1:IDDeclarante", Declarant.class);
+        xstream.alias("dec1:PersonaContacto", ContactPerson.class);
+        xstream.alias("dec1:Declarado", DeclaredEntity.class);
+        xstream.alias("dec1:Domicilio", Address.class);
+        xstream.alias("dec1:MonedaVirtual", VirtualCurrency.class);
 
         // Configure XStream to handle namespaces
         xstream.alias("soapenv:Envelope", Envelope.class);

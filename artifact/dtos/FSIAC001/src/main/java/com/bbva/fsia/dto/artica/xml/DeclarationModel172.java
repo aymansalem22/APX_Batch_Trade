@@ -8,7 +8,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import java.util.List;
 
 
-@XStreamAlias("dec1:Declaracion")
+@XStreamAlias("dec:Declaracion")
 public class DeclarationModel172 {
 
     @XStreamAlias("dec1:Cabecera")
