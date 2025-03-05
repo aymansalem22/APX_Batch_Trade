@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
 
-@XStreamAlias("dec1:Cabecera")
+
 public class Header {
 
     @XStreamAlias("dec1:TipoComunicacion")

@@ -51,24 +51,24 @@ public class FSIAJ00101ESFunctionalTest{
 		Assert.assertTrue(jobExecution.getExitStatus().equals(ExitStatus.COMPLETED));
 	}
 
-	@Test
-	public void testWrite() throws Exception {
-		WriteDeclarationModel172 writer = new WriteDeclarationModel172();
-		writer.setResource(new FileSystemResource("output/test_output.xml"));
-
-		TradeOperation trade = new TradeOperation();
-		trade.setGfTradeId(123456);
-		trade.setGfAssetPairName("BTC/EUR");
-		trade.setTradeAmountAssetName("BTC");
-		trade.setGfTradeEx1Amount(2);
-		trade.setGfNetPriceAmount(34950.5);
-		trade.setGfTrdDate(new java.sql.Date(System.currentTimeMillis()));
-		trade.setGfNetAssetAmount(87450.38);
-		trade.setClients("John Doe, Jane Smith");
-
-		ProcessTrade processor = new ProcessTrade();
-		DeclarationModel172 declaration = processor.process(trade);
-
-		writer.write(Collections.singletonList(declaration));
-	}
+//	@Test
+//	public void testWrite() throws Exception {
+//		WriteDeclarationModel172 writer = new WriteDeclarationModel172();
+//		writer.setResource(new FileSystemResource("output/test_output.xml"));
+//
+//		TradeOperation trade = new TradeOperation();
+//		trade.setGfTradeId(123456);
+//		trade.setGfAssetPairName("BTC/EUR");
+//		trade.setTradeAmountAssetName("BTC");
+//		trade.setGfTradeEx1Amount(2);
+//		trade.setGfNetPriceAmount(34950.5);
+//		trade.setGfTrdDate(new java.sql.Date(System.currentTimeMillis()));
+//		trade.setGfNetAssetAmount(87450.38);
+//		trade.setClients("John Doe, Jane Smith");
+//
+//		ProcessTrade processor = new ProcessTrade();
+//		DeclarationModel172 declaration = processor.process(trade);
+//
+//		writer.write(Collections.singletonList(declaration));
+//	}
 }

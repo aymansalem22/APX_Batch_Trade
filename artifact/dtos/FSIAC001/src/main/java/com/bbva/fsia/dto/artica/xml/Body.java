@@ -4,6 +4,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("soapenv:Body")
 public class Body {
+    @XStreamAlias("dec:Declaracion")
     private DeclarationModel172 declaration;
 
     // Getters and setters...

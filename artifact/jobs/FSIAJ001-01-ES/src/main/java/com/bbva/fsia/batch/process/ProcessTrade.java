@@ -21,6 +21,7 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclarationM
         private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("dd-MM-yyyy");
 
 
+
         @Override
         public DeclarationModel172 process(TradeOperation trade) throws Exception {
 
@@ -31,7 +32,7 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclarationM
                 header.setFiscalYear("2023");
                 header.setModelVersionId("1.0");
 
-                // Create Declarant
+                // Create Declarant (Declarante)
                 Declarant declarant = new Declarant();
                 declarant.setTaxId("A48265169");
                 declarant.setCompanyName("BANCO BILBAO VIZCAYA ARGENTARIA S.A.");
@@ -45,48 +46,45 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclarationM
                 declarant.setContactPerson(contactPerson);
                 header.setDeclarant(declarant);
 
-                // Create Address
+                // Create Address (Domicilio)
                 Address address = new Address();
-                address.setCountry("ES");
+                address.setCountry("ES");  // Spain
                 address.setCity("Madrid");
                 address.setStreet("Gran Via");
                 address.setNumber("12");
                 address.setPostalCode("28013");
 
-                // Create Virtual Currency details
+                // Create Virtual Currency (MonedaVirtual)
                 VirtualCurrency virtualCurrency = new VirtualCurrency();
                 virtualCurrency.setCurrencyType("V");
-                virtualCurrency.setCurrencyName(trade.getGfAssetPairName());
-                virtualCurrency.setCurrencySymbol(trade.getTradeAmountAssetName());
+                virtualCurrency.setCurrencyName(trade.getGfAssetPairName()); // Mapping from TradeOperation
+                virtualCurrency.setCurrencySymbol(trade.getTradeAmountAssetName()); // Mapping from TradeOperation
                 virtualCurrency.setNumberOfUnits(trade.getGfTradeEx1Amount() != null ? trade.getGfTradeEx1Amount() : 0);
                 virtualCurrency.setCurrencyValue(trade.getGfNetPriceAmount() != null ? trade.getGfNetPriceAmount() : 0.0);
                 virtualCurrency.setValueSource("CoinMarketCap");
 
-                // Ensure Date Format is Correct
+                // Date handling for Custody End Date
                 if (trade.getGfTrdDate() != null) {
                         virtualCurrency.setCustodyEndDate(trade.getGfTrdDate());
-                } else {
-                        virtualCurrency.setCustodyEndDate(null);
                 }
 
-                // Map Balance at Year End
+                // Balance at Year End
                 virtualCurrency.setBalanceAtYearEnd(trade.getGfNetAssetAmount() != null ? trade.getGfNetAssetAmount() : 0.0);
 
-                // Create Declared Entity
+                // Create Declared Entity (Declarado)
                 DeclaredEntity declaredEntity = new DeclaredEntity();
-                declaredEntity.setDeclaredRecordId(trade.getGfTradeId());
+                declaredEntity.setDeclaredRecordId(trade.getGfTradeId()); // Mapping from TradeOperation
                 declaredEntity.setKey("T");
-                declaredEntity.setFullName(trade.getClients());
+                declaredEntity.setFullName(trade.getClients()); // Mapping to fullName
                 declaredEntity.setAddress(address);
                 declaredEntity.setVirtualCurrencies(Collections.singletonList(virtualCurrency));
 
-                // Create Declaration Model with Correct Structure
+                // Create the DeclarationModel172 and set it up
                 DeclarationModel172 declaration = new DeclarationModel172();
                 declaration.setCabecera(header);
 
-                // Ensure <Declarados> wrapper is included
-                List<DeclaredEntity> declaredEntities = Collections.singletonList(declaredEntity);
-                declaration.setDeclaredEntities(declaredEntities);
+                // Add the Declared Entity and set it in the declaration
+                declaration.setDeclaredEntities(Collections.singletonList(declaredEntity));
 
                 // Debug Output
                 LOGGER.info("Generated DeclarationModel: {}", declaration);
@@ -94,6 +92,3 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclarationM
                 return declaration;
         }
 }
-
-
-
