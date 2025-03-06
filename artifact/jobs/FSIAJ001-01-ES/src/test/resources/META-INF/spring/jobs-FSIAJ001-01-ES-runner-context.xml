@@ -122,8 +122,7 @@
 						<entry key="Declarado" value="com.bbva.fsia.dto.artica.xml.DeclaredEntity"/>
 						<entry key="Header" value="com.bbva.fsia.dto.artica.xml.Cabecerara"/>
 						<entry key="ContactPerson" value="com.bbva.fsia.dto.artica.xml.ContactPerson"/>
-						<entry key="VirtualCurrency" value="com.bbva.fsia.dto.artica.xml.VirtualCurrency"/>
-						<entry key="Address" value="com.bbva.fsia.dto.artica.xml.Address"/>
+						<entry key="IDMonedas" value="com.bbva.fsia.dto.artica.xml.IDMonedas				<entry key="Address" value="com.bbva.fsia.dto.artica.xml.Address"/>
 						<entry key="Declarant" value="com.bbva.fsia.dto.artica.xml.Declarant"/>
 					</map>
 				</property>
@@ -147,7 +146,7 @@
 						<value>com.bbva.fsia.dto.artica.xml.Declarant</value>
 						<value>com.bbva.fsia.dto.artica.xml.ContactPerson</value>
 						<value>com.bbva.fsia.dto.artica.xml.Address</value>
-						<value>com.bbva.fsia.dto.artica.xml.VirtualCurrency</value>
+						<value>com.bbva.fsia.dto.artica.xml.IDMonedase>
 					</list>
 				</property>
 			</bean>

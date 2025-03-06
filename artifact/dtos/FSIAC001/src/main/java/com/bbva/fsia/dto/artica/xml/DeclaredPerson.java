@@ -11,6 +11,9 @@ public class DeclaredPerson {
     @XStreamAlias("dec1:NombreRazon")
     private String fullName;
 
+    @XStreamAlias("dec1:NIF")
+    private String taxId;
+
     @XStreamAlias("dec1:Domicilio")
     private Address address;
 
@@ -30,11 +33,29 @@ public class DeclaredPerson {
         this.fullName = fullName;
     }
 
+    public String getTaxId() {
+        return taxId;
+    }
+
+    public void setTaxId(String taxId) {
+        this.taxId = taxId;
+    }
+
     public Address getAddress() {
         return address;
     }
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "DeclaredPerson{" +
+                "key='" + key + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", taxId='" + taxId + '\'' +
+                ", address=" + address +
+                '}';
     }
 }

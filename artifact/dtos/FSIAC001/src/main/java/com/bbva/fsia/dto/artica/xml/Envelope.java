@@ -1,3 +1,4 @@
+/*
 package com.bbva.fsia.dto.artica.xml;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -50,3 +51,4 @@ public class Envelope {
         this.xmlnsDec1 = xmlnsDec1;
     }
 }
+*/

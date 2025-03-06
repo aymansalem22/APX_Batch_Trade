@@ -19,8 +19,8 @@ public class Declarant {
     @XStreamAlias("dec1:NIFRepresentante")
     private String representativeTaxId;
 
-    @XStreamAlias("dec1:PersonaContacto")
-    private ContactPerson contactPerson;
+//    @XStreamAlias("dec1:PersonaContacto")
+//    private ContactPerson contactPerson;
 
     public String getTaxId() {
         return taxId;
@@ -46,29 +46,14 @@ public class Declarant {
         this.representativeTaxId = representativeTaxId;
     }
 
-    public ContactPerson getContactPerson() {
-        return contactPerson;
-    }
+//    public ContactPerson getContactPerson() {
+//        return contactPerson;
+//    }
+//
+//    public void setContactPerson(ContactPerson contactPerson) {
+//        this.contactPerson = contactPerson;
+//    }
 
-    public void setContactPerson(ContactPerson contactPerson) {
-        this.contactPerson = contactPerson;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Declarant declarant = (Declarant) o;
-
-        return new EqualsBuilder().append(taxId, declarant.taxId).append(companyName, declarant.companyName).append(representativeTaxId, declarant.representativeTaxId).append(contactPerson, declarant.contactPerson).isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(taxId).append(companyName).append(representativeTaxId).append(contactPerson).toHashCode();
-    }
 
     @Override
     public String toString() {
@@ -76,7 +61,6 @@ public class Declarant {
                 "taxId='" + taxId + '\'' +
                 ", companyName='" + companyName + '\'' +
                 ", representativeTaxId='" + representativeTaxId + '\'' +
-                ", contactPerson=" + contactPerson +
                 '}';
     }
 }

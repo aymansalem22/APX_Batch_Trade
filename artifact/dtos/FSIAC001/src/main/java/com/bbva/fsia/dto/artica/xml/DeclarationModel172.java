@@ -11,20 +11,21 @@ import java.util.List;
 
 public class DeclarationModel172 {
 
-    @XStreamAlias("dec1:Cabecera")
-    private Header cabecera;
+    @XStreamAlias("dec:Declaracion")
+    private Header header;
 
-    @XStreamImplicit(itemFieldName = "dec1:Declarado")
+
+
+    @XStreamAlias("dec1:Declarado")
     private List<DeclaredEntity> declaredEntities;
 
 
-
-    public Header getCabecera() {
-        return cabecera;
+    public Header getHeader() {
+        return header;
     }
 
-    public void setCabecera(Header cabecera) {
-        this.cabecera = cabecera;
+    public void setHeader(Header header) {
+        this.header = header;
     }
 
     public List<DeclaredEntity> getDeclaredEntities() {
@@ -35,27 +36,10 @@ public class DeclarationModel172 {
         this.declaredEntities = declaredEntities;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        DeclarationModel172 that = (DeclarationModel172) o;
-
-        return new EqualsBuilder().append(cabecera, that.cabecera).append(declaredEntities, that.declaredEntities).isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(cabecera).append(declaredEntities).toHashCode();
-    }
-
     @Override
     public String toString() {
         return "DeclarationModel172{" +
-                "cabecera=" + cabecera +
+                "header=" + header +
                 ", declaredEntities=" + declaredEntities +
                 '}';
     }

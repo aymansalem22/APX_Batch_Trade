@@ -1,9 +1,6 @@
 package com.bbva.fsia.dto.artica.xml;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.List;
 
@@ -13,17 +10,15 @@ public class DeclaredEntity {
     @XStreamAlias("dec1:IDRegistroDeclarado")
     private Integer declaredRecordId;
 
-    @XStreamAlias("dec1:Clave")
-    private String key;
 
-    @XStreamAlias("dec1:NombreRazon")
-    private String fullName;
+    @XStreamAlias("dec1:IDDeclarado")
+    private DeclaredPerson person;
 
     @XStreamAlias("dec1:Domicilio")
     private Address address;
 
     @XStreamAlias("dec1:IDMonedas")
-    private List<VirtualCurrency> virtualCurrencies;
+    private IDMonedas virtualCurrencies;
 
     public Integer getDeclaredRecordId() {
         return declaredRecordId;
@@ -33,20 +28,12 @@ public class DeclaredEntity {
         this.declaredRecordId = declaredRecordId;
     }
 
-    public String getKey() {
-        return key;
+    public DeclaredPerson getPerson() {
+        return person;
     }
 
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setPerson(DeclaredPerson person) {
+        this.person = person;
     }
 
     public Address getAddress() {
@@ -57,11 +44,21 @@ public class DeclaredEntity {
         this.address = address;
     }
 
-    public List<VirtualCurrency> getVirtualCurrencies() {
+    public IDMonedas getVirtualCurrencies() {
         return virtualCurrencies;
     }
 
-    public void setVirtualCurrencies(List<VirtualCurrency> virtualCurrencies) {
+    public void setVirtualCurrencies(IDMonedas virtualCurrencies) {
         this.virtualCurrencies = virtualCurrencies;
+    }
+
+    @Override
+    public String toString() {
+        return "DeclaredEntity{" +
+                "declaredRecordId=" + declaredRecordId +
+                ", person=" + person +
+                ", address=" + address +
+                ", virtualCurrencies=" + virtualCurrencies +
+                '}';
     }
 }

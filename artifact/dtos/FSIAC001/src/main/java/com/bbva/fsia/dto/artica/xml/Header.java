@@ -6,7 +6,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
 
-
+@XStreamAlias("dec1:Cabecera")
 public class Header {
 
     @XStreamAlias("dec1:TipoComunicacion")
@@ -64,21 +64,7 @@ public class Header {
         this.declarant = declarant;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
 
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Header header = (Header) o;
-
-        return new EqualsBuilder().append(communicationType, header.communicationType).append(model, header.model).append(fiscalYear, header.fiscalYear).append(modelVersionId, header.modelVersionId).append(declarant, header.declarant).isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(communicationType).append(model).append(fiscalYear).append(modelVersionId).append(declarant).toHashCode();
-    }
 
     @Override
     public String toString() {
