@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DeclarationModel172 {
 
-    @XStreamAlias("dec:Declaracion")
+
     private Header header;
 
 

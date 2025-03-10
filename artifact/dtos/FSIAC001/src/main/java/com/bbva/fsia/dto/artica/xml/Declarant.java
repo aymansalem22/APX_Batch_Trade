@@ -19,8 +19,6 @@ public class Declarant {
     @XStreamAlias("dec1:NIFRepresentante")
     private String representativeTaxId;
 
-//    @XStreamAlias("dec1:PersonaContacto")
-//    private ContactPerson contactPerson;
 
     public String getTaxId() {
         return taxId;

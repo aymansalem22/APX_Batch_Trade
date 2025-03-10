@@ -1,8 +1,10 @@
 package com.bbva.fsia.dto.artica.xml;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamConverter;
 
 import java.util.Date;
+
 
 @XStreamAlias("dec1:MonedaVirtual")
 public class VirtualCurrency {
@@ -19,7 +21,7 @@ public class VirtualCurrency {
     @XStreamAlias("dec1:OrigenValorMonedas")
     private String valueSource;
 
-    @XStreamAlias("dec1:FechaFinCustodia")
+
     private Date custodyEndDate;
 
     @XStreamAlias("dec1:SaldoMonedaVirtual")

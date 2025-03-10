@@ -14,7 +14,9 @@ import org.springframework.core.io.Resource;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.sql.Date;
+
+import java.time.ZoneId;
+import java.util.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -25,7 +27,8 @@ import java.util.function.DoubleConsumer;
 public class ReadTrade implements ItemReader<TradeOperation>, StepExecutionListener {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(ReadTrade.class);
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     private Resource resource;
     private boolean isFileRead;
     private BufferedReader br;
@@ -62,7 +65,10 @@ public class ReadTrade implements ItemReader<TradeOperation>, StepExecutionListe
             trade.setContractId(getValue(values, 2));
             trade.setClients(getValue(values, 3));
             trade.setGfTradeType(getValue(values, 4));
-            parseDate(values, 5).ifPresent(date -> trade.setGfTrdDate(Date.valueOf(date)));
+            parseDate(values, 5).ifPresent(localDate -> {
+                Date utilDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                trade.setGfTrdDate(utilDate);
+            });
             trade.setGfAssetPairName(getValue(values, 6));
             trade.setTradeAmountAssetName(getValue(values, 7));
             setDoubleValue(values, 8, value -> trade.setGfTradeEx1Amount((int) value));
@@ -76,12 +82,24 @@ public class ReadTrade implements ItemReader<TradeOperation>, StepExecutionListe
             trade.setNetPriceAssetName(getValue(values, 16));
             setDoubleValue(values, 17, trade::setGfNetAssetAmount);
             setDoubleValue(values, 18, trade::setNetAmountAssetName);
-            parseDate(values, 19).ifPresent(date -> trade.setGfExecutionDate(Date.valueOf(date)));
-            parseDate(values, 20).ifPresent(date -> trade.setGfCustomerSettlementDate(Date.valueOf(date)));
+            parseDate(values, 19).ifPresent(localDate -> {
+                Date utilDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                trade.setGfExecutionDate(utilDate);
+            });
+            parseDate(values, 20).ifPresent(localDate -> {
+                Date utilDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                trade.setGfCustomerSettlementDate(utilDate);
+            });
             trade.setGfCustomerSettlementStatusId(getValue(values, 21));
-            parseDate(values, 22).ifPresent(date -> trade.setGfMarketSettlementDate(Date.valueOf(date)));
+            parseDate(values, 22).ifPresent(localDate -> {
+                Date utilDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                trade.setGfMarketSettlementDate(utilDate);
+            });
             trade.setGfMarketSettlementStatusId(getValue(values, 23));
-            parseDate(values, 24).ifPresent(date -> trade.setGfGlAccountDate(Date.valueOf(date)));
+            parseDate(values, 24).ifPresent(localDate -> {
+                Date utilDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                trade.setGfGlAccountDate(utilDate);
+            });
             setDoubleValue(values, 25, trade::setGfTaxAmount);
             setDoubleValue(values, 26, trade::setGfTaxCurrency2Id);
             setDoubleValue(values, 27, trade::setGfBrokerageFee1Amount);

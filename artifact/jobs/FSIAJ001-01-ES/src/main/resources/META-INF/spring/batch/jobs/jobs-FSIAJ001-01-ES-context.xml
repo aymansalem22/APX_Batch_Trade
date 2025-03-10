@@ -10,6 +10,10 @@
             <chunk reader="tradeReader" processor="tradeProcess" writer="tradeWriter"
                  commit-interval="50" />
         </tasklet>
+        <listeners>
+            <listener ref="tradeProcess" />
+            <listener ref="tradeWriter" />
+        </listeners>
     </step>
 
   </job>
