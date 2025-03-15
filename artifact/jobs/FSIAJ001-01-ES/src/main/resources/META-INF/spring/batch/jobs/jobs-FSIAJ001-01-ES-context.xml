@@ -5,15 +5,19 @@
     <listeners>
       <listener ref="interceptorJobExecutionListener"/>
     </listeners>
-    <step id="trade" >
+    <step id="trade" next="soap" >
         <tasklet>
             <chunk reader="tradeReader" processor="tradeProcess" writer="tradeWriter"
-                 commit-interval="50" />
+                 commit-interval="50"  />
         </tasklet>
         <listeners>
             <listener ref="tradeProcess" />
             <listener ref="tradeWriter" />
         </listeners>
+    </step>
+
+    <step id="soap" >
+        <tasklet ref="soapTransmission"/>
     </step>
 
   </job>

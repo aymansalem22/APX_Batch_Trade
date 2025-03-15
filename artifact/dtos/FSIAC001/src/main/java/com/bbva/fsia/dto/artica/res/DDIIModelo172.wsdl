@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- editado con XMLSpy v2018 (x64) (http://www.altova.com) por AEAT (AGENCIA ESTATAL ADMON TRIBUTARIA) -->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:ddiiD="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/Declaracion.xsd" xmlns:ddii="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/DeclaracionInformativa.xsd" xmlns:ddiiR="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/RespuestaDeclaracion.xsd" xmlns:ddiiC="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/ConsultaDI.xsd" xmlns:ddiiRC="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/RespuestaConsultaDI.xsd" xmlns:ddiiB="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/BajaDI.xsd" xmlns:ddiiRB="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/RespuestaBajaDI.xsd" xmlns:ddiiWdsl="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/DDIIModelo.wsdl" targetNamespace="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/DDIIModelo.wsdl">
+	<wsdl:types>
+		<xs:schema targetNamespace="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/DDIIModelo.wsdl" elementFormDefault="qualified" xmlns:ddiiWdsl="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/DDIIModelo.wsdl" xmlns:ddiiD="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/Declaracion.xsd" xmlns:ddii="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/DeclaracionInformativa.xsd" xmlns:ddiiC="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/ConsultaDI.xsd" xmlns:ddiiRC="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/RespuestaConsultaDI.xsd" xmlns:ddiiB="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/BajaDI.xsd" xmlns:ddiiRB="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/RespuestaBajaDI.xsd">
+			<xs:import namespace="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/Declaracion.xsd" schemaLocation="Declaracion172.xsd"/>
+			<xs:import namespace="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/DeclaracionInformativa.xsd" schemaLocation="DeclaracionInformativa172.xsd"/>
+			<xs:import namespace="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/RespuestaDeclaracion.xsd" schemaLocation="RespuestaDeclaracion172.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="EntradaModelo172">
+		<wsdl:part name="Declaracion" element="ddiiD:Declaracion"/>
+	</wsdl:message>
+	<wsdl:message name="RespuestaModelo172">
+		<wsdl:part name="RespuestaDeclaracion" element="ddiiR:RespuestaDeclaracion"/>
+	</wsdl:message>
+	<wsdl:message name="EntradaBajaModelo172">
+		<wsdl:part name="Baja" element="ddiiD:Baja"/>
+	</wsdl:message>
+	<wsdl:message name="RespuestaBajaModelo172">
+		<wsdl:part name="RespuestaBaja" element="ddiiR:RespuestaBaja"/>
+	</wsdl:message>
+	<wsdl:portType name="ddiiSOAP">
+		<wsdl:operation name="SuministroModelo172">
+			<wsdl:input message="ddiiWdsl:EntradaModelo172"/>
+			<wsdl:output message="ddiiWdsl:RespuestaModelo172"/>
+		</wsdl:operation>
+		<wsdl:operation name="BajaModelo172">
+			<wsdl:input message="ddiiWdsl:EntradaBajaModelo172"/>
+			<wsdl:output message="ddiiWdsl:RespuestaBajaModelo172"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ddiiBinding" type="ddiiWdsl:ddiiSOAP">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="SuministroModelo172">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="BajaModelo172">
+			<soap:operation soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="ddiiService">
+		<!-- Entorno de PRODUCCION -->
+		<wsdl:port name="SuministroModelo172" binding="ddiiWdsl:ddiiBinding">
+			<soap:address location="https://www1.agenciatributaria.gob.es/wlpl/DDII-ENOL/ws/mod172/DiiEnolMod172V1SOAP"/>
+		</wsdl:port>
+		<!-- Entorno de PRODUCCION para acceso con certificado de sello-->
+		<wsdl:port name="SuministroModelo172Sello" binding="ddiiWdsl:ddiiBinding">
+			<soap:address location="https://www10.agenciatributaria.gob.es/wlpl/DDII-ENOL/ws/mod172/DiiEnolMod172V1SOAP"/>
+		</wsdl:port>
+		<!-- Entorno de PRUEBAS -->
+		<wsdl:port name="SuministroModelo172Pruebas" binding="ddiiWdsl:ddiiBinding">
+			<soap:address location="https://prewww1.aeat.es/wlpl/DDII-ENOL/ws/mod172/DiiEnolMod172V1SOAP"/>
+		</wsdl:port>
+		<!-- Entorno de PRUEBAS para acceso con certificado de sello -->
+		<wsdl:port name="SuministroModelo172PruebasSello" binding="ddiiWdsl:ddiiBinding">
+			<soap:address location="https://prewww10.aeat.es/wlpl/DDII-ENOL/ws/mod172/DiiEnolMod172V1SOAP"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

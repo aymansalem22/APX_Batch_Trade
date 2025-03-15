@@ -65,6 +65,8 @@ public class ReadTrade implements ItemReader<TradeOperation>, StepExecutionListe
             trade.setContractId(getValue(values, 2));
             trade.setClients(getValue(values, 3));
             trade.setGfTradeType(getValue(values, 4));
+            LOGGER.info("Read GF_TRADE_TYPE: {}", trade.getGfTradeType()); // Add this for debugging
+            System.out.println("Read GF_TRADE_TYPE: " + trade.getGfTradeType()); // Add this for debugging
             parseDate(values, 5).ifPresent(localDate -> {
                 Date utilDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
                 trade.setGfTrdDate(utilDate);

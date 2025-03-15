@@ -1,15 +1,21 @@
 package com.bbva.fsia.batch;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Collections;
 import java.util.HashMap;
 
+import com.bbva.apx.exception.io.IOException;
 import com.bbva.fsia.batch.process.ProcessTrade;
 import com.bbva.fsia.batch.write.WriteDeclarationModel172;
 import com.bbva.fsia.dto.artica.trade.TradeOperation;
 import com.bbva.fsia.dto.artica.xml.DeclarationModel172;
+import com.bbva.fsia.lib.r062.FSIAR062;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameter;
@@ -19,6 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.when;
 
 /**
  * Test for batch process FSIAJ001-01-ES
@@ -30,6 +39,18 @@ public class FSIAJ00101ESFunctionalTest{
 	@Autowired
 	private JobLauncherTestUtils jobLauncherTestUtils;
 
+	@Autowired
+	private FSIAR062 fsiaR062; // Mock the library
+
+@Before
+	public void setUp() throws java.io.IOException {
+	// Step 1: Load the XML response from the file
+	String mockResponseXml = loadFileContent("src/test/resources/respuesta_172.xml");
+//	String mockResponseXml = loadFileContent("src/test/resources/respuesta_rechazda.xml");
+
+	// Step 2: Mock the executeRespSoap172 method to return the XML response
+	when(fsiaR062.executeRespSoap172(anyString(), anyString())).thenReturn(mockResponseXml);
+	}
 
 	@Test
 	public void testLaunchJob() throws Exception {
@@ -51,24 +72,15 @@ public class FSIAJ00101ESFunctionalTest{
 		Assert.assertTrue(jobExecution.getExitStatus().equals(ExitStatus.COMPLETED));
 	}
 
-//	@Test
-//	public void testWrite() throws Exception {
-//		WriteDeclarationModel172 writer = new WriteDeclarationModel172();
-//		writer.setResource(new FileSystemResource("output/test_output.xml"));
-//
-//		TradeOperation trade = new TradeOperation();
-//		trade.setGfTradeId(123456);
-//		trade.setGfAssetPairName("BTC/EUR");
-//		trade.setTradeAmountAssetName("BTC");
-//		trade.setGfTradeEx1Amount(2);
-//		trade.setGfNetPriceAmount(34950.5);
-//		trade.setGfTrdDate(new java.sql.Date(System.currentTimeMillis()));
-//		trade.setGfNetAssetAmount(87450.38);
-//		trade.setClients("John Doe, Jane Smith");
-//
-//		ProcessTrade processor = new ProcessTrade();
-//		DeclarationModel172 declaration = processor.process(trade);
-//
-//		writer.write(Collections.singletonList(declaration));
-//	}
+	public static String loadFileContent(String filePath) throws IOException, java.io.IOException {
+		StringBuilder content = new StringBuilder();
+		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				content.append(line).append("\n");
+			}
+		}
+		return content.toString();
+	}
+
 }

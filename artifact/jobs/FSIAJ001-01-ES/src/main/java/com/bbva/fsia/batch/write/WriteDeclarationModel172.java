@@ -25,6 +25,7 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclaredEntity>, Ste
     private Resource resource;
     private XStream xStream;
     private Header header;
+    private String finalBody;
 
 
     public WriteDeclarationModel172() {
@@ -39,42 +40,52 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclaredEntity>, Ste
 
     @Override
     public void write(List<? extends DeclaredEntity> items) throws Exception {
-        if (resource == null) {
-            throw new IllegalStateException("Output resource must be set.");
+        if (items == null || items.isEmpty()) {
+            LOGGER.warn("No items to process.");
+            return;
         }
 
+        // Validate consistency of operation type
+        validateOperationType(items);
+
+        // Determine the operation type
+        String operationType = extractOperationType();
+
+        // Build the SOAP request dynamically
         StringBuilder xmlBuilder = new StringBuilder();
         xmlBuilder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
                 .append("<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\n")
                 .append("                  xmlns:dec=\"https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/Declaracion.xsd\"\n")
                 .append("                  xmlns:dec1=\"https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/DeclaracionInformativa.xsd\">\n")
                 .append("<soapenv:Header/>\n")
-                .append("<soapenv:Body>\n")
-                .append("<dec:Declaracion>\n");
+                .append("<soapenv:Body>\n");
+
+        // Add the root element based on the operation type
+        String rootElement = getRootElement(operationType);
+        xmlBuilder.append("<dec:").append(rootElement).append(">\n");
 
         // Serialize Header
-
         SerializationService<Header> headerSerializationService = new SerializationService<>();
         String serializedHeader = headerSerializationService.serialize(header);
         xmlBuilder.append(serializedHeader).append("\n");
 
+        // Serialize Items
         SerializationService<DeclaredEntity> serializationService = new SerializationService<>();
-
-
         for (DeclaredEntity item : items) {
             String serializedItem = serializationService.serialize(item);
             xmlBuilder.append(serializedItem).append("\n");
         }
 
-        xmlBuilder.append("</dec:Declaracion>\n")
+        // Close tags
+        xmlBuilder.append("</dec:").append(rootElement).append(">\n")
                 .append("</soapenv:Body>\n")
                 .append("</soapenv:Envelope>");
 
-        String finalBody = xmlBuilder.toString();
-        LOGGER.info("Final body: {}", finalBody);
+        // Store the final XML body
+        finalBody = xmlBuilder.toString();
+        LOGGER.info("Generated SOAP Request: {}", finalBody);
 
-      //  finalBody = finalBody.replaceAll(" class=\"sql-date\"", "");
-
+        // Write the XML to the output file
         try (FileOutputStream fos = new FileOutputStream(resource.getFile());
              Writer writer = new OutputStreamWriter(fos, "UTF-8")) {
             writer.write(finalBody);
@@ -85,26 +96,7 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclaredEntity>, Ste
         }
     }
 
-    private String serializeHeader(Header header) {
-        SerializationService<Header> headerSerializationService = new SerializationService<>();
-        return headerSerializationService.serialize(header);
-    }
 
-//    private Header createHeader() {
-//        Header header = new Header();
-//        header.setCommunicationType("A0");
-//        header.setModel("172");
-//        header.setFiscalYear("2023");
-//        header.setModelVersionId("1.0");
-//
-//        Declarant declarant = new Declarant();
-//        declarant.setTaxId("A48265169");
-//        declarant.setCompanyName("BANCO BILBAO VIZCAYA ARGENTARIA S.A.");
-//        declarant.setRepresentativeTaxId("XXXXXXXX");
-//
-//        header.setDeclarant(declarant);
-//        return header;
-//    }
 
     @Override
     public void beforeStep(StepExecution stepExecution) {
@@ -112,8 +104,59 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclaredEntity>, Ste
         this.header = (Header) stepExecution.getExecutionContext().get("header");
     }
 
+
+
+
+
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
-        return null;
+        if (finalBody != null) {
+            stepExecution.getJobExecution().getExecutionContext().put("finalBody", finalBody);
+            LOGGER.info("Promoted Final Body to Job Execution Context: {}", finalBody);
+        } else {
+            LOGGER.error("Final Body is null. Cannot promote to Job Execution Context.");
+        }
+        return ExitStatus.COMPLETED;
     }
+
+
+    private String extractOperationType() {
+        if (header == null || header.getCommunicationType() == null) {
+            throw new IllegalStateException("Header or communication type is missing.");
+        }
+        return header.getCommunicationType();
+    }
+
+
+    private String getRootElement(String operationType) {
+        switch (operationType) {
+            case "A0": // Alta
+            case "A1": // Modificación
+                return "Declaracion";
+            case "Baja":
+                return "Baja";
+            default:
+                throw new IllegalArgumentException("Invalid operation type: " + operationType);
+        }
+    }
+
+    private void validateOperationType(List<? extends DeclaredEntity> items) {
+        if (items == null || items.isEmpty()) return;
+
+        String operationType = extractOperationType();
+        boolean allSameType = true;
+
+        for (DeclaredEntity item : items) {
+            // Assuming each DeclaredEntity has a reference to its Header or similar logic
+            if (!operationType.equals(header.getCommunicationType())) {
+                allSameType = false;
+                break;
+            }
+        }
+
+        if (!allSameType) {
+            throw new IllegalArgumentException("Mixed operation types detected in the batch.");
+        }
+    }
+
 }

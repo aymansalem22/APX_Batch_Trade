@@ -45,6 +45,10 @@
 		<property name="resource" ref="TradeFileResourceXml2"/>
 	</bean>
 
+	<bean id="soapTransmission" class="com.bbva.fsia.batch.soap.SOAPTransmission">
+		<property name="fsiaR062" ref="fsiaR062"/>
+	</bean>
+
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
 </beans>

@@ -12,5 +12,8 @@
 	<version>0.0.0</version>
 	<packaging>pom</packaging>
 	<name>LIBRARIES-artica</name>
-	<modules/>
+	<modules>
+		<module>FSIAR062</module>
+		<module>FSIAR062IMPL</module>
+	</modules>
 </project>

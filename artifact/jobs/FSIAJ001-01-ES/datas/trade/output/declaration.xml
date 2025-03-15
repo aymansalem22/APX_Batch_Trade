@@ -6,7 +6,7 @@
 <soapenv:Body>
 <dec:Declaracion>
 <dec1:Cabecera>
-  <dec1:TipoComunicacion>A0</dec1:TipoComunicacion>
+  <dec1:TipoComunicacion>A1</dec1:TipoComunicacion>
   <dec1:Modelo>172</dec1:Modelo>
   <dec1:Ejercicio>2023</dec1:Ejercicio>
   <dec1:IDVersionModelo>1.0</dec1:IDVersionModelo>

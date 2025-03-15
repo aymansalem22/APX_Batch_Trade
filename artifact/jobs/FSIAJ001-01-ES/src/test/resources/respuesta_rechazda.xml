@@ -1,0 +1,35 @@
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+    <env:Header/>
+    <env:Body Id="Body">
+        <ddiiR:RespuestaDeclaracion
+                xmlns:ddiiR="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/RespuestaDeclaracion.xsd"
+                xmlns:ddii="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/DeclaracionInformativa.xsd">
+            <ddiiR:DatosPresentacion>
+                <ddii:NIFPresentador>XXXXXXXX</ddii:NIFPresentador>
+                <ddii:TimestampPresentacion>13-07-2023 11:22:33</ddii:TimestampPresentacion>
+            </ddiiR:DatosPresentacion>
+            <ddiiR:Cabecera>
+                <ddii:TipoComunicacion>A0</ddii:TipoComunicacion>
+                <ddii:Modelo>172</ddii:Modelo>
+                <ddii:Ejercicio>2023</ddii:Ejercicio>
+                <ddii:IDVersionModelo>1.0</ddii:IDVersionModelo>
+                <ddii:IDDeclarante>
+                    <ddii:NIF>72932800H</ddii:NIF>
+                    <ddii:NombreRazon>XXXXXXXX</ddii:NombreRazon>
+                </ddii:IDDeclarante>
+            </ddiiR:Cabecera>
+            <ddiiR:EstadoEnvio>Rechazada</ddiiR:EstadoEnvio>
+            <ddiiR:RespuestaLinea>
+                <ddiiR:IDRegistroDeclarado>1A</ddiiR:IDRegistroDeclarado>
+                <ddiiR:EstadoRegistro>Incorrecto</ddiiR:EstadoRegistro>
+                <ddiiR:Errores>
+                    <ddiiR:Error>
+                        <ddiiR:CodigoError>01</ddiiR:CodigoError>
+                        <ddiiR:DescripcionError>Invalid NIF</ddiiR:DescripcionError>
+                        <ddiiR:ElementoError>IDDeclarante.NIF</ddiiR:ElementoError>
+                    </ddiiR:Error>
+                </ddiiR:Errores>
+            </ddiiR:RespuestaLinea>
+        </ddiiR:RespuestaDeclaracion>
+    </env:Body>
+</env:Envelope>

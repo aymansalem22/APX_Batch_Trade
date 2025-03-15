@@ -162,6 +162,11 @@
 			<artifactId>FSIAC001</artifactId>
 			<version>0.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.bbva.fsia</groupId>
+			<artifactId>FSIAR062</artifactId>
+			<version>0.0.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>

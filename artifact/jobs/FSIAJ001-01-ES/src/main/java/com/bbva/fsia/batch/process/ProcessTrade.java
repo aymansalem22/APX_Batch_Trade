@@ -21,6 +21,7 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclaredEnti
 
         @Override
         public DeclaredEntity process(TradeOperation trade) {
+                header.setCommunicationType(trade.getGfTradeType());
                 DeclaredEntity entity = createBaseEntity(trade);
                 populateVirtualCurrency(entity, trade);
                 return entity;
@@ -84,7 +85,7 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclaredEnti
 
         @Override
         public void beforeStep(StepExecution stepExecution) {
-                header = createHeader();
+                header = createHeader(null); // Pass null initially
                 stepExecution.getExecutionContext().put("header", header);
         }
 
@@ -93,15 +94,19 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclaredEnti
                 return null;
         }
 
-        private Header createHeader() {
+        private Header createHeader(TradeOperation trade) {
                 Header header = new Header();
-                header.setCommunicationType("A0");
+                header.setCommunicationType(trade != null ? trade.getGfTradeType() : "A0"); // Default to "A0" if no trade yet
                 header.setModel("172");
                 header.setFiscalYear("2023");
                 header.setModelVersionId("1.0");
                 header.setDeclarant(createDeclarant());
                 return header;
         }
+
+
+
+
 
         private Declarant createDeclarant() {
                 Declarant declarant = new Declarant();
