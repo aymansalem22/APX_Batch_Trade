@@ -1,13 +1,14 @@
 package com.bbva.fsia.batch.util;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-import org.osgi.framework.BundleContext;
 import com.bbva.elara.configuration.manager.application.ApplicationConfigurationService;
 import com.bbva.elara.configuration.manager.application.ApxBackend;
 import com.bbva.elara.configuration.manager.application.BackendConfiguration;
 import com.bbva.elara.configuration.manager.application.factory.ApplicationConfigurationServiceFactory;
+import org.osgi.framework.BundleContext;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class ConfigurationFactoryMock implements
 		ApplicationConfigurationServiceFactory {

@@ -1,9 +1,7 @@
 package com.bbva.fsia.batch.write;
 
 import com.bbva.apx.exception.io.IOException;
-import com.bbva.fsia.batch.process.ProcessTrade;
-import com.bbva.fsia.dto.artica.xml.Declarant;
-import com.bbva.fsia.dto.artica.xml.DeclarationModel172;
+import com.bbva.fsia.batch.SharedData;
 import com.bbva.fsia.dto.artica.xml.DeclaredEntity;
 import com.bbva.fsia.dto.artica.xml.Header;
 import com.thoughtworks.xstream.XStream;
@@ -16,7 +14,9 @@ import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.core.io.Resource;
 
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.List;
 
 public class WriteDeclarationModel172 implements ItemWriter<DeclaredEntity>, StepExecutionListener {
@@ -26,6 +26,8 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclaredEntity>, Ste
     private XStream xStream;
     private Header header;
     private String finalBody;
+    private SharedData sharedData;
+
 
 
     public WriteDeclarationModel172() {
@@ -33,6 +35,9 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclaredEntity>, Ste
     }
 
 
+    public void setSharedData(SharedData sharedData) {
+        this.sharedData = sharedData;
+    }
 
     public void setResource(Resource resource) {
         this.resource = resource;
@@ -84,7 +89,8 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclaredEntity>, Ste
         // Store the final XML body
         finalBody = xmlBuilder.toString();
         LOGGER.info("Generated SOAP Request: {}", finalBody);
-
+        System.out.println("Generated SOAP Request: " + finalBody);
+        sharedData.setFinalBody(finalBody);
         // Write the XML to the output file
         try (FileOutputStream fos = new FileOutputStream(resource.getFile());
              Writer writer = new OutputStreamWriter(fos, "UTF-8")) {
@@ -111,7 +117,7 @@ public class WriteDeclarationModel172 implements ItemWriter<DeclaredEntity>, Ste
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
         if (finalBody != null) {
-            stepExecution.getJobExecution().getExecutionContext().put("finalBody", finalBody);
+          //  stepExecution.getJobExecution().getExecutionContext().put("finalBody", finalBody);
             LOGGER.info("Promoted Final Body to Job Execution Context: {}", finalBody);
         } else {
             LOGGER.error("Final Body is null. Cannot promote to Job Execution Context.");

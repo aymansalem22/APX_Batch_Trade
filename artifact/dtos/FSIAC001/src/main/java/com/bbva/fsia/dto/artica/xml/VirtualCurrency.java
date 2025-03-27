@@ -1,7 +1,6 @@
 package com.bbva.fsia.dto.artica.xml;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamConverter;
 
 import java.util.Date;
 
@@ -13,7 +12,7 @@ public class VirtualCurrency {
     private TypeCurrency typeCurrency;
 
     @XStreamAlias("dec1:NumMonedas")
-    private Integer numberOfUnits;
+    private Double numberOfUnits;
 
     @XStreamAlias("dec1:ValorMonedas")
     private Double currencyValue;
@@ -36,11 +35,11 @@ public class VirtualCurrency {
         this.typeCurrency = typeCurrency;
     }
 
-    public Integer getNumberOfUnits() {
+    public Double getNumberOfUnits() {
         return numberOfUnits;
     }
 
-    public void setNumberOfUnits(Integer numberOfUnits) {
+    public void setNumberOfUnits(Double numberOfUnits) {
         this.numberOfUnits = numberOfUnits;
     }
 

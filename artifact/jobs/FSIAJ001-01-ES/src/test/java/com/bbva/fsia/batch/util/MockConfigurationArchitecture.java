@@ -1,10 +1,10 @@
 package com.bbva.fsia.batch.util;
 
-import java.io.IOException;
-import java.util.Properties;
+import com.bbva.elara.configuration.manager.ConfigurationManager;
 import org.apache.commons.configuration.Configuration;
 
-import com.bbva.elara.configuration.manager.ConfigurationManager;
+import java.io.IOException;
+import java.util.Properties;
 
 
 public class MockConfigurationArchitecture implements ConfigurationManager {

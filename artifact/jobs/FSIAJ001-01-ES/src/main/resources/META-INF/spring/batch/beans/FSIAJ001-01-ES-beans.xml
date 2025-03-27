@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" 
-	xmlns:tx="http://www.springframework.org/schema/tx" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context" 
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
 						http://www.springframework.org/schema/beans/spring-beans.xsd
-						http://www.springframework.org/schema/context
-						http://www.springframework.org/schema/context/spring-context.xsd
+
+
 						http://www.springframework.org/schema/tx 
 						http://www.springframework.org/schema/tx/spring-tx.xsd">
 	
@@ -23,6 +22,8 @@
 		<property name="defaultIncrementer" ref="defaultIncrementer" />		
 	</bean>
 
+	<bean id="sharedData" class="com.bbva.fsia.batch.SharedData" scope="singleton" />
+
 	<bean id="TradeFileResource" class="org.springframework.core.io.ClassPathResource">
 		<constructor-arg value="data/trade/input/trade.txt"/>
 	</bean>
@@ -37,16 +38,18 @@
 	</bean>
 
 
-	<bean id="TradeFileResourceXml2" class="org.springframework.core.io.FileSystemResource">
-		<constructor-arg value="datas/trade/output/declaration.xml"/>
+	<bean id="TradeFileResourceXml2" class="org.springframework.core.io.ClassPathResource">
+		<constructor-arg value="data/trade/input/declaration.xml"/>
 	</bean>
 
 	<bean id="tradeWriter" class="com.bbva.fsia.batch.write.WriteDeclarationModel172">
-		<property name="resource" ref="TradeFileResourceXml2"/>
+<!--	<property name="resource" ref="TradeFileResourceXml2"/>-->
+		<property name="sharedData" ref="sharedData"/>
 	</bean>
 
 	<bean id="soapTransmission" class="com.bbva.fsia.batch.soap.SOAPTransmission">
-		<property name="fsiaR062" ref="fsiaR062"/>
+<!--		<property name="fsiaR062" ref="fsiaR062"/>-->
+		<property name="sharedData" ref="sharedData"/>
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />

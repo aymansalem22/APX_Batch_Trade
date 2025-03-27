@@ -1,10 +1,10 @@
 package com.bbva.fsia.dto.artica.trade;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * The TradeOperation class...
@@ -20,7 +20,7 @@ public class TradeOperation implements Serializable  {
 	private Date gfTrdDate;
 	private String gfAssetPairName;
 	private String tradeAmountAssetName;
-	private Integer gfTradeEx1Amount;
+	private Double gfTradeEx1Amount;
 	private Double gfGrossPriceAmount;
 	private String grossPriceAssetName;
 	private Double gfGrossEx1Amount;
@@ -107,11 +107,11 @@ public class TradeOperation implements Serializable  {
 		this.tradeAmountAssetName = tradeAmountAssetName;
 	}
 
-	public Integer getGfTradeEx1Amount() {
+	public Double getGfTradeEx1Amount() {
 		return gfTradeEx1Amount;
 	}
 
-	public void setGfTradeEx1Amount(Integer gfTradeEx1Amount) {
+	public void setGfTradeEx1Amount(Double gfTradeEx1Amount) {
 		this.gfTradeEx1Amount = gfTradeEx1Amount;
 	}
 

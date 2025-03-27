@@ -79,6 +79,11 @@
 	<bean id="tradeReader" class="com.bbva.fsia.batch.read.ReadTrade">
 		<property name="resource" value="file:src/test/resources/trade.txt"/>
 	</bean>
+
+	<bean id="tradeWriter" class="com.bbva.fsia.batch.write.WriteDeclarationModel172">
+		<property name="resource" value="file:src/test/resources/declaration.txt"/>
+		<property name="sharedData" ref="sharedData"/>
+	</bean>
 	<!--	<bean id="tradeWriter" class="org.springframework.batch.item.xml.StaxEventItemWriter">
 		<property name="resource" value="file:src/test/resources/declaration.xml"/>
 		<property name="marshaller">
@@ -117,7 +122,8 @@
 		</property>
 		<property name="rootTagName" value="Declaracion"/>
 	</bean>-->
-	<bean id="fsiaR062" class="org.mockito.Mockito" factory-method="mock">
-		<constructor-arg value="com.bbva.fsia.lib.r062.FSIAR062"/>
-	</bean>
+<!--	<bean id="fsiaR062" class="org.mockito.Mockito" factory-method="mock">-->
+<!--		<constructor-arg value="com.bbva.fsia.lib.r062.FSIAR062"/>-->
+<!--	</bean>-->
+
 </beans>

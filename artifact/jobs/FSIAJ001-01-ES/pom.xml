@@ -157,14 +157,19 @@
 			<artifactId>elara-batch-configuration-manager-application</artifactId>
 			<version>${apx.core.batch.version}</version>
 		</dependency>
+				<dependency>
+					<groupId>com.bbva.fsia</groupId>
+					<artifactId>FSIAR062</artifactId>
+					<version>0.0.0</version>
+				</dependency>
 		<dependency>
 			<groupId>com.bbva.fsia.dto.artica</groupId>
 			<artifactId>FSIAC001</artifactId>
 			<version>0.0.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.bbva.fsia</groupId>
-			<artifactId>FSIAR062</artifactId>
+			<groupId>com.bbva.dtod.dto.artica</groupId>
+			<artifactId>DTODC010</artifactId>
 			<version>0.0.0</version>
 		</dependency>
 	</dependencies>
@@ -303,7 +308,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.7.201606060606</version>
+				<version>0.8.10</version>
 				<executions>
 					<execution>
 						<id>default-prepare-agent</id>

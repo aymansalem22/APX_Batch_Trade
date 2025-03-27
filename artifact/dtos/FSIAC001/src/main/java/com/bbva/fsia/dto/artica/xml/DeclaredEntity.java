@@ -2,8 +2,6 @@ package com.bbva.fsia.dto.artica.xml;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-import java.util.List;
-
 
 @XStreamAlias("dec1:Declarado")
 public class DeclaredEntity {

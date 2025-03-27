@@ -17,8 +17,10 @@
     </step>
 
     <step id="soap" >
-        <tasklet ref="soapTransmission"/>
+        <tasklet ref="soapTransmission">
+    </tasklet>
     </step>
+
 
   </job>
 </beans:beans>

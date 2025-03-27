@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:dec="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/Declaracion.xsd"
+                  xmlns:dec1="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/DeclaracionInformativa.xsd">
+<soapenv:Header/>
+<soapenv:Body>
+<dec:Declaracion>
+<dec1:Cabecera>
+  <dec1:TipoComunicacion>A0</dec1:TipoComunicacion>
+  <dec1:Modelo>172</dec1:Modelo>
+  <dec1:Ejercicio>2023</dec1:Ejercicio>
+  <dec1:IDVersionModelo>1.0</dec1:IDVersionModelo>
+  <dec1:IDDeclarante>
+    <dec1:NIF>A48265169</dec1:NIF>
+    <dec1:NombreRazon>BANCO BILBAO VIZCAYA ARGENTARIA S.A.</dec1:NombreRazon>
+    <dec1:NIFRepresentante>12345678X</dec1:NIFRepresentante>
+  </dec1:IDDeclarante>
+</dec1:Cabecera>
+<dec1:Declarado>
+  <dec1:IDRegistroDeclarado>1001</dec1:IDRegistroDeclarado>
+  <dec1:IDDeclarado>
+    <dec1:Clave>T</dec1:Clave>
+    <dec1:NombreRazon>John Doe</dec1:NombreRazon>
+    <dec1:Domicilio>
+      <dec1:CodigoPais>ES</dec1:CodigoPais>
+      <dec1:NombreMunicipio>Madrid</dec1:NombreMunicipio>
+      <dec1:NombreVia>Gran Via</dec1:NombreVia>
+      <dec1:Numeracion>12</dec1:Numeracion>
+      <dec1:CodigoPostal>28013</dec1:CodigoPostal>
+    </dec1:Domicilio>
+  </dec1:IDDeclarado>
+  <dec1:IDMonedas>
+    <dec1:TipoMoneda>V</dec1:TipoMoneda>
+    <dec1:MonedaVirtual>
+      <dec1:TipoMonedaVirtual>
+        <dec1:DenominacionMonedaVirtual>BITCOIN</dec1:DenominacionMonedaVirtual>
+        <dec1:SiglasMonedaVirtual>BTC</dec1:SiglasMonedaVirtual>
+      </dec1:TipoMonedaVirtual>
+      <dec1:NumMonedas>2.0</dec1:NumMonedas>
+      <dec1:valorMonedas>34950.5</dec1:valorMonedas>
+      <dec1:origenvalorMonedas>CoinMarketCap</dec1:origenvalorMonedas>
+      <dec1:FechaFinCustodia>2023-01-29</dec1:FechaFinCustodia>
+      <dec1:SaldoMonedaVirtual>2.0</dec1:SaldoMonedaVirtual>
+    </dec1:MonedaVirtual>
+  </dec1:IDMonedas>
+</dec1:Declarado>
+</dec:Declaracion>
+</soapenv:Body>
+</soapenv:Envelope>

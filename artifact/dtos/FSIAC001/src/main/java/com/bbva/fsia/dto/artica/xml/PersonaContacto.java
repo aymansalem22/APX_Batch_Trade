@@ -1,4 +1,4 @@
-package com.bbva.fsia.dto.artica.xmlresponsev2;
+package com.bbva.fsia.dto.artica.xml;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 

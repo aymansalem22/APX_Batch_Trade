@@ -1,57 +1,56 @@
 package com.bbva.fsia.batch.soap;
 
-import lombok.experimental.var;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.xml.sax.InputSource;
 
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.SchemaFactory;
-import java.io.StringReader;
-import java.io.StringWriter;
-import javax.xml.XMLConstants;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class XmlUtils {
 
 
 
-        public static String extractSoapBody(String soapResponse) throws Exception {
-            // Parse the SOAP response to extract the <RespuestaDeclaracion> element
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            factory.setNamespaceAware(true); // Enable namespace awareness
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(new InputSource(new StringReader(soapResponse)));
+    public static String extractSoapBody(String soapResponse) {
+        String startTag = "<ddiiR:RespuestaDeclaracion";
+        String endTag = "</ddiiR:RespuestaDeclaracion>";
 
-            // Find the <RespuestaDeclaracion> element
-            XPath xPath = XPathFactory.newInstance().newXPath();
-            String expression = "//*[local-name()='RespuestaDeclaracion']";
-            Node respuestaDeclaracionNode = (Node) xPath.evaluate(expression, document, XPathConstants.NODE);
+        int startIndex = soapResponse.indexOf(startTag);
+        int endIndex = soapResponse.indexOf(endTag);
 
-            if (respuestaDeclaracionNode == null) {
-                throw new IllegalArgumentException("Could not find <RespuestaDeclaracion> in SOAP response.");
-            }
-
-            // Convert the node back to a string
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            StringWriter writer = new StringWriter();
-            transformer.transform(new DOMSource(respuestaDeclaracionNode), new StreamResult(writer));
-            return writer.toString();
+        if (startIndex == -1 || endIndex == -1) {
+            return "";
         }
 
+        int startTagEndIndex = soapResponse.indexOf(">", startIndex);
+        if (startTagEndIndex == -1) {
+            return "";
+        }
 
+        // Extract full XML content
+        String extractedXml = soapResponse.substring(startIndex, endIndex + endTag.length());
+
+        // Fix the opening tag issue: Ensure <RespuestaDeclaracion> is in one line
+        extractedXml = cleanOpeningTag(extractedXml);
+
+        // Remove namespaces
+        extractedXml = removeNamespaces(extractedXml);
+
+        // Clean unnecessary spaces or newlines between tags
+        extractedXml = extractedXml.replaceAll(">\\s+<", "><");
+
+        return extractedXml.trim();
     }
+
+    private static String cleanOpeningTag(String xml) {
+        Pattern pattern = Pattern.compile("(<ddiiR:RespuestaDeclaracion)(\\s+[^>]*)?>", Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(xml);
+        if (matcher.find()) {
+            xml = matcher.replaceFirst("<ddiiR:RespuestaDeclaracion>");
+        }
+        return xml;
+    }
+
+    public static String removeNamespaces(String xml) {
+        xml = xml.replaceAll("xmlns(:\\w+)?=\"[^\"]*\"", "");  // Remove namespace declarations
+        xml = xml.replaceAll("(<|</)\\w+:", "$1");  // Remove namespace prefixes
+        return xml.trim();
+    }
+}

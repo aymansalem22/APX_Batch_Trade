@@ -16,11 +16,13 @@ public class FSIAR062Impl extends FSIAR062Abstract {
 
 	@Override
 	public String executeRespSoap172(String xmlConsult_172, String idCertificateDigital) {
-		LOGGER.info("xmlConsult_172 : {}"+xmlConsult_172);
-		LOGGER.info("idCertificateDigital : {}"+idCertificateDigital);
+		LOGGER.info("xmlConsult_172 : {}",xmlConsult_172);
+		System.out.println("LIB executeRespSoap172..xmlConsult_172 : "+xmlConsult_172);
+		LOGGER.info("idCertificateDigital : {}",idCertificateDigital);
+		System.out.println("idCertificateDigital : "+idCertificateDigital);
 		StreamSource request = new StreamSource(new StringReader(xmlConsult_172));
 
-		LOGGER.info("request : {}"+request);
+		LOGGER.info("request : {}",request);
 
 		apiConnectorCertificado = this.apiConnectorBuilder.certificate(idCertificateDigital).external().build();
 
@@ -31,19 +33,19 @@ public class FSIAR062Impl extends FSIAR062Abstract {
 		String apiURLId = "send172SOAP";
 		StreamResult xmlReceipt = null;
 
-		LOGGER.info( "attempts : {}"+attempts);
-		LOGGER.info("connection : {}"+connection);
-		LOGGER.info("apiURLId : {}"+apiURLId);
+		LOGGER.info( "attempts : {}",attempts);
+		LOGGER.info("connection : {}",connection);
+		LOGGER.info("apiURLId : {}",apiURLId);
 
 		while(!connection && attempts > 0){
 			attempts--;
-			LOGGER.info("attempts : {}"+attempts);
+			LOGGER.info("attempts : {}",attempts);
 			xmlReceipt = new StreamResult(new StringWriter());
 			connection = apiConnectorCertificado.sendSourceAndReceiveToResult(apiURLId, request, xmlReceipt);
 		}
-		LOGGER.info("connection : {}"+connection);
+		LOGGER.info("connection : {}",connection);
 		if(connection){
-			LOGGER.info("xmlReceipt.getWriter().toString() : {}"+xmlReceipt.getWriter().toString());
+			LOGGER.info("xmlReceipt.getWriter().toString() : {}",xmlReceipt.getWriter().toString());
 			return xmlReceipt.getWriter().toString();
 		} else{
 			return "";

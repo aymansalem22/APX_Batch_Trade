@@ -8,8 +8,6 @@ import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.item.ItemProcessor;
-import java.text.SimpleDateFormat;
-import java.util.Collections;
 
 
 
@@ -58,10 +56,17 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclaredEnti
 
                 VirtualCurrency vc = new VirtualCurrency();
                 vc.setTypeCurrency(createTypeCurrency(trade));
-                vc.setNumberOfUnits(getIntValue(trade.getGfTradeEx1Amount()));
+                vc.setNumberOfUnits(getDoubleValue(trade.getGfTradeEx1Amount()));
                 vc.setCurrencyValue(getDoubleValue(trade.getGfNetPriceAmount()));
                 vc.setValueSource("CoinMarketCap");
+
+
+
                 vc.setCustodyEndDate(trade.getGfTrdDate());
+
+
+
+
                 vc.setBalanceAtYearEnd(getDoubleValue(trade.getGfNetAssetAmount()));
 
                 monedas.setVirtualCurrency(vc);
@@ -98,7 +103,7 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclaredEnti
                 Header header = new Header();
                 header.setCommunicationType(trade != null ? trade.getGfTradeType() : "A0"); // Default to "A0" if no trade yet
                 header.setModel("172");
-                header.setFiscalYear("2023");
+                header.setPeriod(createPeriod());
                 header.setModelVersionId("1.0");
                 header.setDeclarant(createDeclarant());
                 return header;
@@ -112,7 +117,14 @@ public  class ProcessTrade implements ItemProcessor<TradeOperation, DeclaredEnti
                 Declarant declarant = new Declarant();
                 declarant.setTaxId("A48265169");
                 declarant.setCompanyName("BANCO BILBAO VIZCAYA ARGENTARIA S.A.");
-                declarant.setRepresentativeTaxId("XXXXXXXX");
+                declarant.setRepresentativeTaxId("A48265169");
                 return declarant;
+        }
+
+        private Period createPeriod() {
+                Period period = new Period();
+                period.setFiscalYear("2024");
+                period.setPeriod("4T");
+                return period;
         }
 }

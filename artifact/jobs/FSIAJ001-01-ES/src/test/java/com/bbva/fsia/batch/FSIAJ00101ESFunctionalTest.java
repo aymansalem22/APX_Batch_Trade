@@ -1,33 +1,25 @@
 package com.bbva.fsia.batch;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.Collections;
-import java.util.HashMap;
-
 import com.bbva.apx.exception.io.IOException;
-import com.bbva.fsia.batch.process.ProcessTrade;
-import com.bbva.fsia.batch.write.WriteDeclarationModel172;
-import com.bbva.fsia.dto.artica.trade.TradeOperation;
-import com.bbva.fsia.dto.artica.xml.DeclarationModel172;
-import com.bbva.fsia.lib.r062.FSIAR062;
+import com.bbva.dtod.dto.artica.xml.*;
+import com.bbva.fsia.batch.write.SerializationService;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParameter;
-import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.when;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Test for batch process FSIAJ001-01-ES
@@ -39,18 +31,24 @@ public class FSIAJ00101ESFunctionalTest{
 	@Autowired
 	private JobLauncherTestUtils jobLauncherTestUtils;
 
-	@Autowired
-	private FSIAR062 fsiaR062; // Mock the library
+//	@Autowired
+//	private FSIAR062 fsiaR062; // Mock the library
+
+//	@Autowired
+//	private ApplicationConfigurationService applicationConfigurationService;
 
 @Before
 	public void setUp() throws java.io.IOException {
 	// Step 1: Load the XML response from the file
-	String mockResponseXml = loadFileContent("src/test/resources/respuesta_172.xml");
+//	String mockResponseXml = loadFileContent("src/test/resources/respuesta_172.xml");
 //	String mockResponseXml = loadFileContent("src/test/resources/respuesta_rechazda.xml");
 
 	// Step 2: Mock the executeRespSoap172 method to return the XML response
-	when(fsiaR062.executeRespSoap172(anyString(), anyString())).thenReturn(mockResponseXml);
-	}
+	//when(fsiaR062.executeRespSoap172(anyString(), anyString())).thenReturn(mockResponseXml);
+    //mock this to avoid null pointer exception :            certificadoElegido = String.valueOf(this.applicationConfigurationService.getProperty("fsif.soap.certificadoASSET"));
+	//when(String.valueOf(this.applicationConfigurationService.getProperty("fsif.soap.certificadoASSET"))).thenReturn("7293385H");
+
+}
 
 	@Test
 	public void testLaunchJob() throws Exception {
@@ -81,6 +79,21 @@ public class FSIAJ00101ESFunctionalTest{
 			}
 		}
 		return content.toString();
+	}
+
+	@Test
+	public void testDeserialize() {
+		String xml = "<RespuestaDeclaracion xmlns:ddiiR=\"https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ddii/enol/ws/RespuestaDeclaracion.xsd\">" +
+				"    <CSV>FYYATSZMJDRJXRRW</CSV>" +
+				"    <DatosPresentacion>" +
+				"        <NIFPresentador>XXXXXXXX</NIFPresentador>" +
+				"        <TimestampPresentacion>13-07-2023 11:22:33</TimestampPresentacion>" +
+				"    </DatosPresentacion>" +
+				"</RespuestaDeclaracion>";
+		SerializationService<RespuestaDeclaracionType> service = new SerializationService<>();
+		RespuestaDeclaracionType response = service.deserialize(xml);
+		assertNotNull(response);
+		assertEquals("FYYATSZMJDRJXRRW", response.getCsv());
 	}
 
 }

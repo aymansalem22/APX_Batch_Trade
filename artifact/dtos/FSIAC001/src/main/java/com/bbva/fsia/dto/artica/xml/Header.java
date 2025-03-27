@@ -1,8 +1,6 @@
 package com.bbva.fsia.dto.artica.xml;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
 
@@ -15,14 +13,15 @@ public class Header {
     @XStreamAlias("dec1:Modelo")
     private String model;
 
-    @XStreamAlias("dec1:Ejercicio")
-    private String fiscalYear;
+    @XStreamAlias("dec1:Periodo")
+    private Period period;
 
     @XStreamAlias("dec1:IDVersionModelo")
     private String modelVersionId;
 
     @XStreamAlias("dec1:IDDeclarante")
     private Declarant declarant;
+
 
     public String getCommunicationType() {
         return communicationType;
@@ -40,12 +39,12 @@ public class Header {
         this.model = model;
     }
 
-    public String getFiscalYear() {
-        return fiscalYear;
+    public Period getPeriod() {
+        return period;
     }
 
-    public void setFiscalYear(String fiscalYear) {
-        this.fiscalYear = fiscalYear;
+    public void setPeriod(Period period) {
+        this.period = period;
     }
 
     public String getModelVersionId() {
@@ -64,14 +63,12 @@ public class Header {
         this.declarant = declarant;
     }
 
-
-
     @Override
     public String toString() {
         return "Header{" +
                 "communicationType='" + communicationType + '\'' +
                 ", model='" + model + '\'' +
-                ", fiscalYear='" + fiscalYear + '\'' +
+                ", period=" + period +
                 ", modelVersionId='" + modelVersionId + '\'' +
                 ", declarant=" + declarant +
                 '}';
